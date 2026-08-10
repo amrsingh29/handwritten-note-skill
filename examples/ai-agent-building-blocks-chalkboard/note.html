@@ -1,0 +1,253 @@
+<meta charset="utf-8">
+<title>The Building Blocks of an AI Agent</title>
+<style>
+  :root {
+    --paper: #1c2b26;
+    --paper-line: #2c3f38;
+    --ink: #f4f1e8;
+    --ink-soft: #b9c4bd;
+    --accent-1: #f6e05e;
+    --accent-2: #f6a5c0;
+    --accent-3: #7ec8e3;
+    --accent-4: #c7f0d8;
+    --accent-5: #f0b86e;
+    --card-bg: #22332d;
+    --shadow: rgba(0, 0, 0, 0.5);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(255,255,255,0.03), transparent 60%),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 1100px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    text-align: center;
+    margin: 6px 0 4px;
+    text-wrap: balance;
+  }
+
+  .underline-svg { display: block; margin: -4px auto 18px; width: min(520px, 78%); }
+
+  .intro {
+    max-width: 620px;
+    margin: 0 auto 34px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .intro b { color: var(--accent-1); }
+
+  /* --- Hub & Spoke --- */
+  .hub-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 780px;
+    aspect-ratio: 1 / 0.92;
+    margin: 0 auto 20px;
+  }
+
+  .lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .lines path {
+    fill: none;
+    stroke: var(--ink-soft);
+    stroke-width: 2;
+    stroke-dasharray: 1 8;
+    stroke-linecap: round;
+    opacity: 0.7;
+  }
+
+  .center-card {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    background: var(--card-bg);
+    border: 3px solid var(--accent-1);
+    border-radius: 20px 22px 18px 24px / 22px 18px 24px 20px;
+    box-shadow: 0 8px 0 var(--shadow);
+    padding: 20px 16px;
+    text-align: center;
+    z-index: 3;
+  }
+  .center-card .tag {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    font-weight: 800;
+    margin-bottom: 6px;
+  }
+  .center-card h2 { margin: 0; font-size: 1.35rem; line-height: 1.15; }
+
+  .spoke {
+    position: absolute;
+    width: 190px;
+    background: var(--card-bg);
+    border: 2.5px solid var(--spoke-color);
+    border-radius: 14px 16px 15px 14px / 16px 14px 17px 13px;
+    box-shadow: 3px 5px 0 var(--shadow);
+    padding: 14px 16px 16px;
+    z-index: 2;
+  }
+  .spoke .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--spoke-color);
+    margin-bottom: 4px;
+  }
+  .spoke h3 { margin: 0 0 4px; font-size: 1.05rem; }
+  .spoke p { margin: 0; font-size: 0.86rem; line-height: 1.35; color: var(--ink-soft); }
+
+  /* five spoke positions around a circle */
+  .s1 { top: 0%;   left: 50%;  transform: translate(-50%, 0); }
+  .s2 { top: 24%;  left: 96%;  transform: translate(-50%, -50%); }
+  .s3 { top: 78%;  left: 78%;  transform: translate(-50%, -50%); }
+  .s4 { top: 78%;  left: 22%;  transform: translate(-50%, -50%); }
+  .s5 { top: 24%;  left: 4%;   transform: translate(-50%, -50%); }
+
+  .footer-banner {
+    margin-top: 20px;
+    text-align: center;
+    border: 2.5px solid var(--accent-3);
+    border-radius: 40px;
+    padding: 14px 24px;
+    background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.1rem;
+  }
+  .footer-banner .accent { color: var(--accent-3); font-weight: 700; }
+
+  /* mobile: collapse the radial layout into a stacked list */
+  .mobile-list { display: none; }
+
+  @media (max-width: 760px) {
+    .hub-wrap { display: none; }
+    .mobile-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+    .mobile-list .center-card { position: static; transform: none; width: 100%; margin: 0 0 4px; }
+    .mobile-list .spoke { position: static; width: 100%; }
+  }
+  @media (min-width: 761px) {
+    .mobile-list { display: none; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>The Building Blocks of an AI Agent</h1>
+  <svg class="underline-svg" viewBox="0 0 520 20" preserveAspectRatio="none">
+    <path d="M4 12 C 130 3, 290 18, 516 8" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <p class="intro">
+    An AI agent isn't one clever trick — it's <b>five separate jobs</b> working together,
+    and each one can succeed or fail on its own.
+  </p>
+
+  <div class="hub-wrap">
+    <svg class="lines" viewBox="0 0 100 92" preserveAspectRatio="none">
+      <path d="M50 46 L50 10"/>
+      <path d="M50 46 L88 26"/>
+      <path d="M50 46 L74 76"/>
+      <path d="M50 46 L26 76"/>
+      <path d="M50 46 L8 26"/>
+    </svg>
+
+    <div class="center-card">
+      <div class="tag">the core</div>
+      <h2>AI Agent</h2>
+    </div>
+
+    <div class="spoke s1" style="--spoke-color: var(--accent-1);">
+      <div class="num">reasoning</div>
+      <h3>LLM Core</h3>
+      <p>Reads the situation and decides what to do next — the "brain" behind every choice.</p>
+    </div>
+    <div class="spoke s2" style="--spoke-color: var(--accent-3);">
+      <div class="num">context</div>
+      <h3>Memory</h3>
+      <p>Remembers past turns, facts, and outcomes so it doesn't start from zero each time.</p>
+    </div>
+    <div class="spoke s3" style="--spoke-color: var(--accent-4);">
+      <div class="num">capability</div>
+      <h3>Tools</h3>
+      <p>Calls APIs, runs code, browses the web — anything beyond just generating text.</p>
+    </div>
+    <div class="spoke s4" style="--spoke-color: var(--accent-5);">
+      <div class="num">strategy</div>
+      <h3>Planning</h3>
+      <p>Breaks a big goal into smaller steps and decides what order to do them in.</p>
+    </div>
+    <div class="spoke s5" style="--spoke-color: var(--accent-2);">
+      <div class="num">safety</div>
+      <h3>Guardrails</h3>
+      <p>Keeps actions in-scope, reversible, and checked before anything risky happens.</p>
+    </div>
+  </div>
+
+  <div class="mobile-list">
+    <div class="center-card">
+      <div class="tag">the core</div>
+      <h2>AI Agent</h2>
+    </div>
+    <div class="spoke" style="--spoke-color: var(--accent-1);">
+      <div class="num">reasoning</div>
+      <h3>LLM Core</h3>
+      <p>Reads the situation and decides what to do next — the "brain" behind every choice.</p>
+    </div>
+    <div class="spoke" style="--spoke-color: var(--accent-3);">
+      <div class="num">context</div>
+      <h3>Memory</h3>
+      <p>Remembers past turns, facts, and outcomes so it doesn't start from zero each time.</p>
+    </div>
+    <div class="spoke" style="--spoke-color: var(--accent-4);">
+      <div class="num">capability</div>
+      <h3>Tools</h3>
+      <p>Calls APIs, runs code, browses the web — anything beyond just generating text.</p>
+    </div>
+    <div class="spoke" style="--spoke-color: var(--accent-5);">
+      <div class="num">strategy</div>
+      <h3>Planning</h3>
+      <p>Breaks a big goal into smaller steps and decides what order to do them in.</p>
+    </div>
+    <div class="spoke" style="--spoke-color: var(--accent-2);">
+      <div class="num">safety</div>
+      <h3>Guardrails</h3>
+      <p>Keeps actions in-scope, reversible, and checked before anything risky happens.</p>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Take away any one of the five, and it stops being an <span class="accent">agent</span> — just a chatbot or a script.
+  </div>
+</div>
