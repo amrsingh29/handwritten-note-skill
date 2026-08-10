@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Palette Catalog — How Lightning Works</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root {
+    --bg: #f4f5f8;
+    --panel: #ffffff;
+    --ink: #1c1e26;
+    --ink-soft: #6b6f7c;
+    --border: #e2e4ea;
+    --accent: #4040d9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14151b;
+      --panel: #1c1e26;
+      --ink: #eceef3;
+      --ink-soft: #9498a5;
+      --border: #2c2e38;
+      --accent: #8f8fff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    padding: 28px 24px 18px;
+    text-align: center;
+  }
+  header .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+  }
+  header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(1.5rem, 3.5vw, 2.1rem);
+  }
+  header p {
+    margin: 0 auto;
+    max-width: 620px;
+    color: var(--ink-soft);
+    font-size: 0.98rem;
+    line-height: 1.5;
+  }
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+    height: calc(100vh - 118px);
+    min-height: 500px;
+    border-top: 1px solid var(--border);
+  }
+  .grid {
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid var(--border);
+  }
+  .thumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--panel);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s ease, transform 0.1s ease;
+  }
+  .thumb:hover { border-color: var(--accent); }
+  .thumb.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .thumb img {
+    width: 64px; height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background: #ddd;
+  }
+  .thumb .meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .thumb .name { font-weight: 600; font-size: 0.9rem; }
+  .thumb .swatches { display: flex; gap: 3px; }
+  .thumb .swatch { width: 10px; height: 10px; border-radius: 50%; }
+  .viewer { position: relative; background: var(--panel); }
+  .viewer iframe {
+    width: 100%; height: 100%; border: 0; display: block;
+  }
+  .viewer .open-link {
+    position: absolute;
+    top: 12px; right: 16px;
+    font-size: 0.8rem;
+    color: var(--accent);
+    text-decoration: none;
+    background: var(--panel);
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  footer {
+    text-align: center;
+    padding: 14px;
+    color: var(--ink-soft);
+    font-size: 0.82rem;
+  }
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; height: auto; }
+    .grid { border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; }
+    .thumb { width: calc(50% - 5px); }
+    .viewer { height: 70vh; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">palette catalog</div>
+    <h1>How Lightning Works — 13 Ways</h1>
+    <p>Same topic, same Flow layout, same copy — only the visual brand changes. Click any swatch to load it in the viewer and compare.</p>
+  </header>
+
+  <div class="layout">
+    <div class="grid" id="grid"></div>
+    <div class="viewer">
+      <a class="open-link" id="openLink" href="field-notes/note.html" target="_blank" rel="noopener">Open full page ↗</a>
+      <iframe id="frame" src="field-notes/note.html" title="Note preview"></iframe>
+    </div>
+  </div>
+
+  <footer>Part of the <a href="../../README.md" style="color:inherit;">Handwritten Note</a> skill's example library.</footer>
+
+<script>
+  const brands = [
+    { slug: "field-notes", name: "Field Notes", swatches: ["#0f8b8d","#e4572e","#e8a33d","#6a4c93"] },
+    { slug: "chalkboard", name: "Chalkboard", swatches: ["#f6e05e","#f6a5c0","#7ec8e3","#c7f0d8"] },
+    { slug: "sticky-wall", name: "Sticky Wall", swatches: ["#fff275","#ff8fab","#8ecae6","#b9fbc0"] },
+    { slug: "ink-and-marker", name: "Ink & Marker", swatches: ["#ff4500","#ff4500","#ff4500","#ff4500"] },
+    { slug: "midnight-notebook", name: "Midnight Notebook", swatches: ["#e8b04b","#5fd4d6","#c98bd6","#7ea8e0"] },
+    { slug: "bmc-helix", name: "BMC Helix", swatches: ["#4040d9","#ff5a4d","#914796","#264580"] },
+    { slug: "terracotta-studio", name: "Terracotta Studio", swatches: ["#c1502e","#7c8c5a","#d1a039","#9c6b4f"] },
+    { slug: "botanical-press", name: "Botanical Press", swatches: ["#c98a93","#a98b3e","#4f6b52","#8a9a6b"] },
+    { slug: "neon-arcade", name: "Neon Arcade", swatches: ["#ff2fd0","#2ff0ff","#d6ff2f","#7a5cff"] },
+    { slug: "newsprint", name: "Newsprint", swatches: ["#b0281f","#b0281f","#b0281f","#b0281f"] },
+    { slug: "pastel-lab", name: "Pastel Lab", swatches: ["#b8a4e3","#9fd8c4","#a8cbef","#f3b8a0"] },
+    { slug: "blueprint", name: "Blueprint", swatches: ["#7fd4e8","#ffffff","#bfe3ef","#4fa8c9"] },
+    { slug: "sunset-deck", name: "Sunset Deck", swatches: ["#ff8a5b","#e2b33b","#c15b7c","#8a6bb0"] },
+  ];
+
+  const grid = document.getElementById("grid");
+  const frame = document.getElementById("frame");
+  const openLink = document.getElementById("openLink");
+
+  function select(slug, el) {
+    frame.src = slug + "/note.html";
+    openLink.href = slug + "/note.html";
+    document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+  }
+
+  brands.forEach((b, i) => {
+    const btn = document.createElement("button");
+    btn.className = "thumb" + (i === 0 ? " active" : "");
+    btn.innerHTML = `
+      <img src="${b.slug}/preview.png" alt="${b.name} preview" loading="lazy">
+      <div class="meta">
+        <div class="name">${b.name}</div>
+        <div class="swatches">${b.swatches.map(c => `<span class="swatch" style="background:${c}"></span>`).join("")}</div>
+      </div>
+    `;
+    btn.addEventListener("click", () => select(b.slug, btn));
+    grid.appendChild(btn);
+  });
+</script>
+</body>
+</html>

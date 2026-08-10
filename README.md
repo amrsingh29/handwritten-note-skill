@@ -92,6 +92,8 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 Same skill, same rigor, wildly different vibes. That's the point.
 
+**Want to see all 13 brands side by side?** Check out the [palette catalog](examples/palette-catalog-lightning/index.html) — the same "How Lightning Works" note, rendered once per brand, in a browsable gallery with a live preview pane.
+
 ## The layouts
 
 Picked automatically, based on what your content actually is — not habit:

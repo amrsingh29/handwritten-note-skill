@@ -1,0 +1,120 @@
+<meta charset="utf-8">
+<title>How Lightning Works — Chalkboard</title>
+<style>
+  :root {
+    --paper: #1c2b26;
+    --paper-line: #2c3f38;
+    --ink: #f4f1e8;
+    --ink-soft: #b9c4bd;
+    --accent-1: #f6e05e;
+    --accent-2: #f6a5c0;
+    --accent-3: #7ec8e3;
+    --accent-4: #c7f0d8;
+    --card-bg: #22332d;
+    --shadow: rgba(0,0,0,0.5);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+  .sheet { max-width: 1080px; margin: 0 auto; }
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.66rem; font-weight: 700;
+    color: var(--ink-soft); text-align: center;
+  }
+  h1 { font-size: clamp(2rem, 4.2vw, 3rem); text-align: center; margin: 6px 0 4px; text-wrap: balance; }
+  .underline-svg { display: block; margin: -4px auto 26px; width: min(460px, 76%);  }
+  .intro {
+    max-width: 640px; margin: 0 auto 34px; text-align: center;
+    font-size: 1.08rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .intro b { color: var(--accent-2); }
+  .row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-bottom: 26px; }
+  .row.two { grid-template-columns: repeat(2, 1fr); max-width: 720px; margin-left: auto; margin-right: auto; }
+  .card {
+    background: var(--card-bg);
+    border: 2.5px solid var(--card-color, var(--accent-1));
+    border-radius: 14px 16px 15px 14px / 16px 14px 17px 13px;
+    padding: 18px 20px 20px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    transform: rotate(var(--tilt, -0.6deg));
+  }
+  .card .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--card-color, var(--accent-1)); display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+  }
+  .card .num .dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--card-color, var(--accent-1)); color: var(--card-bg);
+    display: inline-flex; align-items: center; justify-content: center; font-size: 0.66rem; font-family: inherit;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 1.22rem; color: var(--ink); }
+  .card p { margin: 0; font-size: 0.98rem; line-height: 1.42; color: var(--ink-soft); }
+  .card .egg { margin-top: 10px; font-size: 0.86rem; color: var(--card-color, var(--accent-1)); font-weight: 700; }
+  .footer-banner {
+    margin-top: 8px; text-align: center; border: 2.5px solid var(--accent-3);
+    border-radius: 40px; padding: 14px 24px; background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow); font-size: 1.05rem;
+  }
+  .footer-banner .accent { color: var(--accent-3); font-weight: 700; }
+  @media (max-width: 860px) { .row, .row.two { grid-template-columns: 1fr; } }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>How Lightning Works</h1>
+  <svg class="underline-svg" viewBox="0 0 460 20" preserveAspectRatio="none">
+    <path d="M4 12 C 110 3, 260 18, 456 8" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <p class="intro">
+    By the time you see the flash, the sky has already spent a fraction of a second
+    <b>deciding exactly where lightning is going to strike</b>.
+  </p>
+
+  <div class="row">
+    <div class="card" style="--card-color: var(--accent-1); --tilt: -1.1deg;">
+      <div class="num"><span class="dot">1</span> the setup</div>
+      <h3>Charge Separation</h3>
+      <p>Inside a storm cloud, ice and hail collide over and over, knocking electrons loose. Negative charge sinks to the cloud's base; positive charge piles up near the top and on the ground below.</p>
+      <div class="egg">opposite charges, building tension</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-2); --tilt: 0.9deg;">
+      <div class="num"><span class="dot">2</span> reaching down</div>
+      <h3>Stepped Leader</h3>
+      <p>An invisible, forked channel of negative charge zigzags downward in tiny, fast steps — feeling out a path toward the ground, branching as it goes.</p>
+      <div class="egg">invisible to the eye, still traveling</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-3); --tilt: -0.7deg;">
+      <div class="num"><span class="dot">3</span> reaching up</div>
+      <h3>Upward Streamer</h3>
+      <p>Sensing it coming, positive charge rises up to meet it — from trees, buildings, towers, even people standing in the open.</p>
+      <div class="egg">the ground answers back</div>
+    </div>
+  </div>
+  <div class="row two">
+    <div class="card" style="--card-color: var(--accent-4); --tilt: 0.8deg;">
+      <div class="num"><span class="dot">4</span> contact</div>
+      <h3>Return Stroke</h3>
+      <p>The instant they connect, a massive surge of current rushes back up that path at roughly a third the speed of light. This is the bright flash you actually see.</p>
+      <div class="egg">~100 million volts, in microseconds</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-1); --tilt: -0.5deg;">
+      <div class="num"><span class="dot">5</span> the aftermath</div>
+      <h3>Thunder</h3>
+      <p>The stroke heats the air along its path to about 30,000 K — five times the surface of the Sun — and that air explosively expands. We hear the shockwave as thunder, arriving late because sound is much slower than light.</p>
+      <div class="egg">count the seconds to guess the distance</div>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Thunder is just the <span class="accent">sound of the flash</span> — arriving late because light beats sound to your eyes first.
+  </div>
+</div>
