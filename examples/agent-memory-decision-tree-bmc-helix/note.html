@@ -1,0 +1,283 @@
+<meta charset="utf-8">
+<title>Which Memory Should Your AI Agent Use?</title>
+<style>
+  :root {
+    --paper: #f7f8fd;
+    --paper-line: #dde3f0;
+    --ink: #052140;
+    --ink-soft: #4d6178;
+    --accent-1: #4040d9;
+    --accent-2: #ff5a4d;
+    --accent-3: #914796;
+    --accent-4: #264580;
+    --card-bg: #fffffe;
+    --shadow: rgba(5, 33, 64, 0.16);
+  }
+  :root[data-theme="dark"] {
+    --paper: #071a2c; --paper-line: #16304a;
+    --ink: #eaf1fb; --ink-soft: #9fb2c8;
+    --accent-1: #8f8fff; --accent-2: #ff8a7d;
+    --accent-3: #d68fda; --accent-4: #7fa0d6;
+    --card-bg: #0d2038; --shadow: rgba(0,0,0,0.45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #071a2c; --paper-line: #16304a;
+      --ink: #eaf1fb; --ink-soft: #9fb2c8;
+      --accent-1: #8f8fff; --accent-2: #ff8a7d;
+      --accent-3: #d68fda; --accent-4: #7fa0d6;
+      --card-bg: #0d2038; --shadow: rgba(0,0,0,0.45);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 34px, var(--paper-line) 35px),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 900px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    text-align: center;
+    margin: 6px 0 4px;
+    text-wrap: balance;
+  }
+
+  .underline-svg { display: block; margin: -4px auto 26px; width: min(460px, 76%); }
+
+  .intro {
+    max-width: 620px;
+    margin: 0 auto 34px;
+    text-align: center;
+    font-size: 1.06rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .intro b { color: var(--accent-2); }
+
+  /* --- Decision Tree --- */
+  .qnode {
+    background: var(--card-bg);
+    border: 2.5px solid var(--accent-1);
+    border-radius: 16px 18px 15px 17px / 18px 14px 19px 15px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    padding: 14px 22px;
+    text-align: center;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .qnode .qtag {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent-1);
+    margin-bottom: 4px;
+  }
+  .qnode p { margin: 0; font-size: 1.12rem; line-height: 1.35; }
+
+  .connector-down {
+    width: 2px;
+    height: 26px;
+    background: repeating-linear-gradient(180deg, var(--ink-soft) 0 4px, transparent 4px 9px);
+    margin: 0 auto;
+  }
+
+  .branches {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .branches::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 25%; right: 25%;
+    height: 2px;
+    background: var(--ink-soft);
+    opacity: 0.5;
+  }
+
+  .branch { display: flex; flex-direction: column; align-items: center; }
+  .branch .drop {
+    width: 2px; height: 20px;
+    background: var(--ink-soft);
+    opacity: 0.5;
+  }
+  .branch .answer-tag {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+  }
+  .branch.no .answer-tag { background: var(--accent-2); color: #fff; }
+  .branch.yes .answer-tag { background: var(--accent-1); color: #fff; }
+
+  .leaf {
+    background: var(--card-bg);
+    border: 2.5px solid var(--leaf-color, var(--accent-4));
+    border-radius: 14px 16px 15px 14px / 16px 14px 17px 13px;
+    box-shadow: 3px 5px 0 var(--shadow);
+    padding: 14px 16px 16px;
+    width: 100%;
+    max-width: 300px;
+  }
+  .leaf .outcome-tag {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.6rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--leaf-color, var(--accent-4));
+    margin-bottom: 4px;
+  }
+  .leaf h3 { margin: 0 0 4px; font-size: 1.08rem; }
+  .leaf p { margin: 0; font-size: 0.88rem; line-height: 1.38; color: var(--ink-soft); }
+
+  .continue-branch { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+  .level {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .footer-banner {
+    margin-top: 32px;
+    text-align: center;
+    border: 2.5px solid var(--accent-3);
+    border-radius: 40px;
+    padding: 14px 24px;
+    background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.02rem;
+  }
+  .footer-banner .accent { color: var(--accent-3); font-weight: 700; }
+
+  @media (max-width: 700px) {
+    .branches { grid-template-columns: 1fr; gap: 20px; }
+    .branches::before { display: none; }
+    .leaf { max-width: 100%; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>Which Memory Should Your AI Agent Use?</h1>
+  <svg class="underline-svg" viewBox="0 0 460 20" preserveAspectRatio="none">
+    <path d="M4 12 C 110 3, 260 18, 456 8" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <p class="intro">
+    Not every agent needs the same kind of memory — <b>three quick questions</b> narrow it down
+    to the right answer instead of reaching for the fanciest option by default.
+  </p>
+
+  <div class="level">
+    <div class="qnode">
+      <div class="qtag">question 1</div>
+      <p>Does it need to persist after this session ends?</p>
+    </div>
+    <div class="connector-down"></div>
+
+    <div class="branches">
+      <div class="branch no">
+        <div class="answer-tag">no</div>
+        <div class="drop"></div>
+        <div class="leaf" style="--leaf-color: var(--accent-2);">
+          <div class="outcome-tag">✓ use this</div>
+          <h3>Working Memory</h3>
+          <p>A short-lived conversation buffer or scratchpad — cleared when the session ends. Cheapest option, and often enough.</p>
+        </div>
+      </div>
+
+      <div class="branch yes">
+        <div class="answer-tag">yes</div>
+        <div class="drop"></div>
+        <div class="continue-branch">
+          <div class="qnode">
+            <div class="qtag">question 2</div>
+            <p>Is it exact facts, or fuzzy context?</p>
+          </div>
+          <div class="connector-down"></div>
+
+          <div class="branches">
+            <div class="branch no">
+              <div class="answer-tag">exact facts</div>
+              <div class="drop"></div>
+              <div class="leaf" style="--leaf-color: var(--accent-4);">
+                <div class="outcome-tag">✓ use this</div>
+                <h3>Structured Memory</h3>
+                <p>A key-value or database record — user preferences, IDs, settings. Fast, exact lookups, no ambiguity.</p>
+              </div>
+            </div>
+
+            <div class="branch yes">
+              <div class="answer-tag">fuzzy context</div>
+              <div class="drop"></div>
+              <div class="continue-branch">
+                <div class="qnode">
+                  <div class="qtag">question 3</div>
+                  <p>Is there a lot of it to remember?</p>
+                </div>
+                <div class="connector-down"></div>
+
+                <div class="branches">
+                  <div class="branch no">
+                    <div class="answer-tag">not much</div>
+                    <div class="drop"></div>
+                    <div class="leaf" style="--leaf-color: var(--accent-3);">
+                      <div class="outcome-tag">✓ use this</div>
+                      <h3>Rolling Summary</h3>
+                      <p>Compress older context into a running summary and carry that forward instead of the raw history.</p>
+                    </div>
+                  </div>
+
+                  <div class="branch yes">
+                    <div class="answer-tag">a lot</div>
+                    <div class="drop"></div>
+                    <div class="leaf" style="--leaf-color: var(--accent-1);">
+                      <div class="outcome-tag">✓ use this</div>
+                      <h3>Vector Memory</h3>
+                      <p>Embed and store it, then retrieve only what's relevant to the current query — scales to far more than fits in context.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Most agents actually need <span class="accent">two or three of these at once</span> — this just tells you which one solves which problem.
+  </div>
+</div>

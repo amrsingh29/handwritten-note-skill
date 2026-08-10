@@ -156,3 +156,30 @@ Each level should stand alone — a reader who stops after level 1 got a complet
 ```
 
 Each quadrant card needs: a name (the framework's own term for that bucket, if it has one — don't invent generic labels when "Cash Cow" already exists), a one-line description of what lands there, and the action or takeaway that follows from being in that quadrant — a quadrant that only describes but never prescribes wastes the format. Resist coloring all four quadrants differently just because there are four of them; a brand with a single-accent rule (like Ink & Marker) should keep the grid in the brand's neutral ink and use the accent only for the buckets' names, not backgrounds — the axes and borders are doing the organizing, not color. On narrow viewports, collapse to a single column stack (still one card per quadrant, in reading order) rather than trying to shrink the grid, since axis labels stop being legible below a certain width.
+
+---
+
+## Decision Tree / Branching
+
+**When**: the reader has a real choice to make and the right answer depends on their specific situation — "which X should I use," "should I do A or B," troubleshooting flows. The giveaway that a topic fits: someone would naturally answer with "it depends — do you...?" rather than a single explanation. If there's only one path through the content, this is Flow, not a tree.
+
+**Skeleton**: a question node at top, branching into two (or more) labeled paths, each leading either to another question (going deeper) or a leaf card with a concrete recommendation. Nest recursively — each level's "continue" branch contains the next question-and-branches unit.
+
+```
+                [ QUESTION 1: is it X? ]
+                 /                    \
+            [NO]                    [YES]
+              |                        |
+        [Leaf: do A]          [ QUESTION 2: is it Y? ]
+                                /                    \
+                            [NO]                    [YES]
+                              |                        |
+                        [Leaf: do B]            [Leaf: do C]
+```
+
+Every leaf must be an actual recommendation ("use this: ___"), not just a restated condition — a decision tree that only classifies but never advises wastes the format the same way a Matrix quadrant that never prescribes does. Label every branch with the actual answer that leads there ("no," "exact facts," "a lot") rather than generic "path A / path B" — the labels are what let a reader jump straight to their branch without reading the others.
+
+**Two things that go wrong if you're not careful, learned from a real build:**
+
+1. **Connector line geometry.** If you draw the horizontal "this question splits into two answers" bar with a pseudo-element or fixed percentage offsets, its endpoints must land exactly on each branch's true center — not an arbitrary inset guess. Compute the line's `left`/`right` insets from the actual column math (e.g. two equal `1fr` columns means each column's center sits at 25% and 75% of the container, so the connecting line should span `left: 25%; right: 25%`, not something like `12.5%/87.5%` picked by eye) so the line's ends land exactly where the vertical drop into each branch actually is. A line that overshoots or undershoots the branch it's supposedly connecting to is immediately noticeable even to a casual reader.
+2. **Depth vs. width.** Each level of nesting halves the horizontal space available to what's below it (since branches keep splitting into two within the same container). Past 3 questions deep, leaf cards get squeezed narrow and their text turns tall and cramped compared to shallower leaves. Cap real decision trees at 3 questions (4 levels of leaves) for this format, and give leaf cards a `min-width` so they resist shrinking below a readable point — if a topic genuinely needs more than 3 questions, it's a sign to either cut a question or reconsider whether Decision Tree is really the right shape for it.
