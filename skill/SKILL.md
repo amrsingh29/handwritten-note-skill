@@ -24,6 +24,7 @@ Choose based on the actual shape of the content, not habit. Read `references/lay
 | Events across time, with dates or ordered eras | **Timeline** |
 | Things that sit on top of each other structurally (architecture, protocol stacks) | **Layered / Stack** |
 | A topic with real depth, worth explaining at multiple levels of detail | **Zoom Levels** |
+| Two independent factors combine into four named buckets (an actual framework with axes) | **Matrix / Quadrant** |
 
 If a topic could fit two templates, pick the one that makes the *reader's* job easier, not the one with more visual novelty. Most "how X works" conceptual explainers are Flow or Hub & Spoke — don't reach for something exotic just for variety.
 

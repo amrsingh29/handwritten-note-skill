@@ -136,3 +136,23 @@ Label each band with both its name and a one-line "what lives here" so the stack
 ```
 
 Each level should stand alone — a reader who stops after level 1 got a complete (if shallow) answer, not a teaser. Visually distinguish the levels by more than just position: increasing card size/padding, a progressively "busier" background texture, or an increasing accent-color intensity all signal "more depth" without needing the reader to read a label. Cap at three levels — a fourth makes the reader wonder why they didn't just read a Wikipedia article. This template pairs unusually well with topics that have real scientific or technical depth (physics, medicine, cryptography) where the 10-second version is necessarily a simplification worth being honest about.
+
+---
+
+## Matrix / Quadrant
+
+**When**: the topic is genuinely two-dimensional — two independent factors combine to put things (or advice) into one of four buckets. Look for content that's actually organized around two named axes already (growth vs. share, urgency vs. importance, effort vs. impact) rather than forcing an arbitrary split — if the topic doesn't have a real second axis, this becomes decoration, not explanation. A giveaway that a topic fits: the standard explanation of it already uses words like "axis," "high/low," or names its four buckets (the BCG matrix's Stars/Cash Cows/Question Marks/Dogs is the canonical example).
+
+**Skeleton**: a 2×2 grid with labeled axes on the outer edges (what each axis measures, plus which direction is "more") and one card per quadrant.
+
+```
+                    ← low X            high X →
+              ┌───────────────────┬───────────────────┐
+  high Y  ↑   │   Quadrant TL      │   Quadrant TR      │
+              ├───────────────────┼───────────────────┤
+              │   Quadrant BL      │   Quadrant BR      │
+              └───────────────────┴───────────────────┘
+                    Y-axis label runs along the left edge
+```
+
+Each quadrant card needs: a name (the framework's own term for that bucket, if it has one — don't invent generic labels when "Cash Cow" already exists), a one-line description of what lands there, and the action or takeaway that follows from being in that quadrant — a quadrant that only describes but never prescribes wastes the format. Resist coloring all four quadrants differently just because there are four of them; a brand with a single-accent rule (like Ink & Marker) should keep the grid in the brand's neutral ink and use the accent only for the buckets' names, not backgrounds — the axes and borders are doing the organizing, not color. On narrow viewports, collapse to a single column stack (still one card per quadrant, in reading order) rather than trying to shrink the grid, since axis labels stop being legible below a certain width.

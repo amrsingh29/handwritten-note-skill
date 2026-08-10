@@ -26,6 +26,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [The Building Blocks of an AI Agent](examples/ai-agent-building-blocks-chalkboard/note.html) | Hub & Spoke | Chalkboard |
 | [The Sun's 11-Year Cycle](examples/solar-cycle-midnight-notebook/note.html) | Cycle / Loop | Midnight Notebook |
 | [Black Holes, at Three Zoom Levels](examples/black-holes-zoom-field-notes/note.html) | Zoom Levels | Field Notes |
+| [The BCG Growth-Share Matrix](examples/bcg-matrix-ink-marker/note.html) | Matrix / Quadrant | Ink & Marker |
 
 <table>
 <tr>
@@ -68,7 +69,13 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 ![Black holes explained at three zoom levels in Field Notes style](examples/black-holes-zoom-field-notes/preview.png)
 
 </td>
-<td width="50%"></td>
+<td width="50%">
+
+**Matrix / Quadrant — Ink & Marker**
+
+![The BCG growth-share matrix in Ink and Marker style](examples/bcg-matrix-ink-marker/preview.png)
+
+</td>
 </tr>
 </table>
 
@@ -87,6 +94,7 @@ Picked automatically, based on what your content actually is — not habit:
 | Events in order, across time | 📅 **Timeline** |
 | Things built on top of each other | 🧱 **Layered / Stack** |
 | A topic worth explaining at multiple depths | 🔭 **Zoom Levels** |
+| Two factors combine into four named buckets | 🎯 **Matrix / Quadrant** |
 
 ## The brands
 

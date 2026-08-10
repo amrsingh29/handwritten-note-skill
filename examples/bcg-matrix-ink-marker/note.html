@@ -1,0 +1,202 @@
+<meta charset="utf-8">
+<title>The BCG Growth-Share Matrix</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --paper-line: #eeeeee;
+    --ink: #111111;
+    --ink-soft: #55555a;
+    --accent-1: #ff4500;
+    --card-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.12);
+  }
+  :root[data-theme="dark"] {
+    --paper: #0c0c0d; --paper-line: #1c1c1e;
+    --ink: #f2f2f2; --ink-soft: #a0a0a5;
+    --accent-1: #ff6a3d;
+    --card-bg: #17171a; --shadow: rgba(0,0,0,0.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0c0c0d; --paper-line: #1c1c1e;
+      --ink: #f2f2f2; --ink-soft: #a0a0a5;
+      --accent-1: #ff6a3d;
+      --card-bg: #17171a; --shadow: rgba(0,0,0,0.5);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 880px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 2.9rem);
+    text-align: center;
+    margin: 6px 0 4px;
+    text-wrap: balance;
+  }
+
+  .rule { width: 70px; height: 4px; background: var(--accent-1); border-radius: 2px; margin: 6px auto 26px; }
+
+  .intro {
+    max-width: 600px;
+    margin: 0 auto 34px;
+    text-align: center;
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .intro b { color: var(--accent-1); }
+
+  /* --- Matrix / Quadrant --- */
+  .matrix-wrap {
+    display: grid;
+    grid-template-columns: 44px 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr auto;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .y-axis-label {
+    grid-column: 1;
+    grid-row: 2 / 4;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+
+  .x-axis-row {
+    grid-column: 2 / 4;
+    grid-row: 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+    padding-top: 10px;
+  }
+
+  .top-hint, .bottom-hint {
+    grid-column: 2 / 4;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .top-hint { grid-row: 1; padding-bottom: 6px; }
+
+  .quad {
+    border: 3px solid var(--ink);
+    padding: 18px 20px 20px;
+    position: relative;
+  }
+  .quad.tl { grid-column: 2; grid-row: 2; border-right-width: 1.5px; border-bottom-width: 1.5px; }
+  .quad.tr { grid-column: 3; grid-row: 2; border-left-width: 1.5px; border-bottom-width: 1.5px; }
+  .quad.bl { grid-column: 2; grid-row: 3; border-right-width: 1.5px; border-top-width: 1.5px; }
+  .quad.br { grid-column: 3; grid-row: 3; border-left-width: 1.5px; border-top-width: 1.5px; }
+
+  .quad .icon { font-size: 1.6rem; margin-bottom: 6px; display: block; }
+  .quad h3 { margin: 0 0 6px; font-size: 1.3rem; }
+  .quad h3 .accent { color: var(--accent-1); }
+  .quad p { margin: 0; font-size: 0.95rem; line-height: 1.42; color: var(--ink-soft); }
+
+  .footer-banner {
+    margin-top: 32px;
+    text-align: center;
+    border: 3px solid var(--ink);
+    border-radius: 40px;
+    padding: 14px 24px;
+    background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.05rem;
+  }
+  .footer-banner .accent { color: var(--accent-1); font-weight: 700; }
+
+  @media (max-width: 640px) {
+    .matrix-wrap { grid-template-columns: 30px 1fr; }
+    .quad.tl, .quad.bl { grid-column: 2; }
+    .quad.tr { grid-column: 2; grid-row: 3; }
+    .quad.br { grid-column: 2; grid-row: 4; }
+    .top-hint, .bottom-hint, .x-axis-row { display: none; }
+    .y-axis-label { grid-row: 2 / 5; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>The BCG Growth-Share Matrix</h1>
+  <div class="rule"></div>
+
+  <p class="intro">
+    One simple question decides where a business sits: is the market
+    <b>growing</b>, and are you <b>winning</b> in it? Plot both, and you get four very
+    different plans of action.
+  </p>
+
+  <div class="matrix-wrap">
+    <div class="top-hint">
+      <div>← low share</div>
+      <div>high share →</div>
+    </div>
+
+    <div class="y-axis-label">MARKET GROWTH ↑</div>
+
+    <div class="quad tl">
+      <span class="icon">❓</span>
+      <h3><span class="accent">Question</span> Marks</h3>
+      <p>Fast-growing market, but you're not winning it yet. Could become a Star with real investment — or quietly fail. High risk, high upside.</p>
+    </div>
+    <div class="quad tr">
+      <span class="icon">⭐</span>
+      <h3><span class="accent">Stars</span></h3>
+      <p>Growing market and you're leading it. Worth pouring resources into — this is where tomorrow's Cash Cows come from.</p>
+    </div>
+    <div class="quad bl">
+      <span class="icon">🐶</span>
+      <h3><span class="accent">Dogs</span></h3>
+      <p>Slow market, weak position. Rarely worth further investment — the honest move is usually to divest or wind down.</p>
+    </div>
+    <div class="quad br">
+      <span class="icon">🐄</span>
+      <h3><span class="accent">Cash Cows</span></h3>
+      <p>Slow-growing market, but you dominate it. Needs little new investment and throws off steady profit — funds everything else.</p>
+    </div>
+
+    <div class="x-axis-row">
+      <div>RELATIVE MARKET SHARE →</div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ The real use of this matrix: let <span class="accent">Cash Cows fund Stars</span>, and stop pretending Dogs will turn around.
+  </div>
+</div>
