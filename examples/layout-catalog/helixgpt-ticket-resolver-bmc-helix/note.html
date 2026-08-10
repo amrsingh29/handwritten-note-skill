@@ -1,0 +1,227 @@
+<meta charset="utf-8">
+<title>How HelixGPT's Ticket Resolver Works</title>
+<style>
+  :root {
+    --paper: #f7f8fd;
+    --paper-line: #dde3f0;
+    --ink: #052140;
+    --ink-soft: #4d6178;
+    --accent-1: #4040d9;
+    --accent-2: #ff5a4d;
+    --accent-3: #914796;
+    --accent-4: #264580;
+    --card-bg: #fffffe;
+    --shadow: rgba(5, 33, 64, 0.16);
+  }
+  :root[data-theme="dark"] {
+    --paper: #071a2c; --paper-line: #16304a;
+    --ink: #eaf1fb; --ink-soft: #9fb2c8;
+    --accent-1: #8f8fff; --accent-2: #ff8a7d;
+    --accent-3: #d68fda; --accent-4: #7fa0d6;
+    --card-bg: #0d2038; --shadow: rgba(0,0,0,0.45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #071a2c; --paper-line: #16304a;
+      --ink: #eaf1fb; --ink-soft: #9fb2c8;
+      --accent-1: #8f8fff; --accent-2: #ff8a7d;
+      --accent-3: #d68fda; --accent-4: #7fa0d6;
+      --card-bg: #0d2038; --shadow: rgba(0,0,0,0.45);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 34px, var(--paper-line) 35px),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 28px 20px 44px;
+  }
+
+  .sheet { max-width: 1180px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.14em; font-size: 0.68rem; font-weight: 700;
+    color: var(--ink-soft); text-align: center;
+  }
+  h1 { font-size: clamp(2rem, 4.4vw, 3.1rem); margin: 4px 0 2px; text-wrap: balance; text-align: center; }
+  .underline-svg { display: block; margin: -6px auto 18px; width: min(560px, 80%); }
+
+  .intro {
+    max-width: 660px; margin: 0 auto 30px; text-align: center;
+    font-size: 1.12rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .intro b { color: var(--accent-1); }
+  .intro .accent2 { color: var(--accent-2); }
+
+  .with-sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 30px;
+    align-items: start;
+  }
+  .flow-col { display: flex; flex-direction: column; gap: 28px; }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    position: relative;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 2.5px solid var(--card-color, var(--accent-1));
+    border-radius: 14px 16px 15px 14px / 16px 14px 17px 13px;
+    padding: 18px 20px 20px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    position: relative;
+    transform: rotate(var(--tilt, -0.5deg));
+  }
+  .card .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800; font-size: 0.7rem; letter-spacing: 0.08em;
+    color: var(--card-color, var(--accent-1)); text-transform: uppercase;
+    display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+  }
+  .card .num .dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--card-color, var(--accent-1)); color: var(--card-bg);
+    font-family: inherit; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.68rem;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 1.28rem; color: var(--ink); }
+  .card p { margin: 0; font-size: 1rem; line-height: 1.42; color: var(--ink-soft); }
+  .card .egg { margin-top: 10px; font-size: 0.92rem; color: var(--card-color, var(--accent-1)); font-weight: 700; }
+
+  .connector { position: relative; align-self: center; height: 46px; }
+  .connector svg { width: 100%; height: 100%; overflow: visible; }
+  .vconnector { display: flex; justify-content: center; margin: -12px 0; }
+  .vconnector svg { width: 80px; height: 40px; }
+
+  aside.sidebar {
+    background: var(--card-bg);
+    border: 2.5px solid var(--accent-2);
+    border-radius: 16px 14px 18px 15px / 14px 18px 13px 16px;
+    padding: 20px 22px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    transform: rotate(0.6deg);
+  }
+  aside.sidebar h4 {
+    margin: 0 0 12px; font-size: 1.2rem; color: var(--accent-2);
+    display: flex; align-items: center; gap: 8px;
+  }
+  aside.sidebar ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 12px; }
+  aside.sidebar li { font-size: 0.98rem; line-height: 1.4; color: var(--ink-soft); }
+  aside.sidebar li b { color: var(--ink); }
+
+  .footer-banner {
+    margin-top: 30px; text-align: center;
+    border: 2.5px solid var(--accent-3);
+    border-radius: 40px; padding: 14px 24px;
+    background: var(--card-bg); box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.08rem;
+  }
+  .footer-banner .accent { color: var(--accent-3); font-weight: 700; }
+
+  @media (max-width: 860px) {
+    .row { grid-template-columns: 1fr; }
+    .connector { display: none; }
+    .with-sidebar { grid-template-columns: 1fr; }
+    .vconnector { display: flex; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>How HelixGPT's Ticket Resolver Works</h1>
+  <svg class="underline-svg" viewBox="0 0 560 20" preserveAspectRatio="none">
+    <path d="M4 12 C 140 4, 300 18, 556 8" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <p class="intro">
+    Ticket Resolver doesn't close incidents for you — it does the <b>triage legwork</b> the second
+    a ticket lands, so the human who picks it up starts with <span class="accent2">answers, not a blank page</span>.
+  </p>
+
+  <div class="with-sidebar">
+    <div class="flow-col">
+      <div class="row">
+        <div class="card" style="--card-color: var(--accent-1); --tilt: -1deg;">
+          <div class="num"><span class="dot">1</span> the trigger</div>
+          <h3>An incident is created</h3>
+          <p>The agent activates automatically, but only for incidents matching rules an admin has already configured.</p>
+          <div class="egg">no blanket coverage — scoped on purpose</div>
+        </div>
+        <div class="connector">
+          <svg viewBox="0 0 100 46"><path d="M4 23 C 30 4, 55 40, 96 23" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M88 15 L97 23 L87 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card" style="--card-color: var(--accent-2); --tilt: 0.8deg;">
+          <div class="num"><span class="dot">2</span> autonomous analysis</div>
+          <h3>It reads the ticket</h3>
+          <p>Sentiment, predicted urgency, predicted impact, and recommended next steps — generated without a human touching it yet.</p>
+          <div class="egg">frustrated user? that gets flagged too</div>
+        </div>
+      </div>
+
+      <div class="vconnector">
+        <svg viewBox="0 0 80 40"><path d="M40 2 C 20 14, 60 26, 40 38" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M32 30 L40 39 L48 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="row">
+        <div class="card" style="--card-color: var(--accent-4); --tilt: -0.7deg;">
+          <div class="num"><span class="dot">3</span> gap detection</div>
+          <h3>Missing info? It asks.</h3>
+          <p>If the ticket doesn't have enough detail to act on, the agent automatically reaches out to the user for what's missing.</p>
+          <div class="egg">no waiting on a human to notice the gap</div>
+        </div>
+        <div class="connector">
+          <svg viewBox="0 0 100 46"><path d="M4 23 C 30 4, 55 40, 96 23" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M88 15 L97 23 L87 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card" style="--card-color: var(--accent-1); --tilt: 1deg;">
+          <div class="num"><span class="dot">4</span> the loop</div>
+          <h3>Response comes back in</h3>
+          <p>The moment the user replies, Ticket Resolver re-analyzes the incident with the new information in hand.</p>
+          <div class="egg">this can repeat until the picture is clear</div>
+        </div>
+      </div>
+
+      <div class="vconnector">
+        <svg viewBox="0 0 80 40"><path d="M40 2 C 20 14, 60 26, 40 38" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M32 30 L40 39 L48 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="row" style="grid-template-columns: 1fr 1fr;">
+        <div class="card" style="--card-color: var(--accent-2); --tilt: -0.6deg;">
+          <div class="num"><span class="dot">5</span> the paper trail</div>
+          <h3>Every action gets logged</h3>
+          <p>Analysis, outreach, recommendations — all recorded to a dedicated activity trail attached to the ticket.</p>
+          <div class="egg">a full audit record, not a black box</div>
+        </div>
+        <div class="card" style="--card-color: var(--accent-3); --tilt: 0.7deg;">
+          <div class="num"><span class="dot">6</span> the handoff</div>
+          <h3>A human takes it from here</h3>
+          <p>The service desk agent opens the ticket, sees the trail and recommendations, applies judgment, and resolves it.</p>
+          <div class="egg">AI informs the decision — doesn't make it</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <h4>Why it matters</h4>
+      <ul>
+        <li><b>Faster triage</b> — the analysis is already done by the time a person opens the ticket.</li>
+        <li><b>Fewer back-and-forths</b> — missing info gets chased down automatically, before it becomes a delay.</li>
+        <li><b>Nothing hidden</b> — every autonomous action is logged, so trust doesn't require blind faith.</li>
+      </ul>
+    </aside>
+  </div>
+
+  <div class="footer-banner">
+    ✎ It's a <span class="accent">triage accelerator</span>, not an auto-resolver — the human still makes the call.
+  </div>
+</div>

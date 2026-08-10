@@ -34,6 +34,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [Detecting Gravitational Waves](examples/layout-catalog/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
 | [The OSI Model, Layer by Layer](examples/layout-catalog/osi-model-sunset-deck/note.html) | Layered / Stack | Sunset Deck |
 | [A Field Guide to AI Agent Jargon](examples/layout-catalog/ai-agent-jargon-field-guide-neon-arcade/note.html) | Glossary / Field Guide | Neon Arcade |
+| [How HelixGPT's Ticket Resolver Works](examples/layout-catalog/helixgpt-ticket-resolver-bmc-helix/note.html) | Flow / Steps | BMC Helix |
 
 <table>
 <tr>
@@ -124,7 +125,13 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 ![A field guide to AI agent jargon in Neon Arcade style](examples/layout-catalog/ai-agent-jargon-field-guide-neon-arcade/preview.png)
 
 </td>
-<td width="50%"></td>
+<td width="50%">
+
+**Flow — BMC Helix**
+
+![How HelixGPT's Ticket Resolver works, in BMC Helix style](examples/layout-catalog/helixgpt-ticket-resolver-bmc-helix/preview.png)
+
+</td>
 </tr>
 </table>
 
