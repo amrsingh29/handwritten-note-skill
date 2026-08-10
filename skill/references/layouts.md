@@ -102,6 +102,8 @@ Give each column its own accent (e.g. `--accent-2` for "before"/A, `--accent-1` 
 
 Vary marker size or add a highlight ring on the single most important milestone (the turning point) rather than treating every point as equal weight — a timeline where every event looks the same importance fails to communicate which one actually mattered. Alternate cards above/below the spine if there are more than 4 milestones to avoid a single overlong row.
 
+**Grid geometry, if using CSS Grid for the alternating above/below layout**: don't make the spine line itself a full-width grid item (e.g. `grid-column: 1 / -1`) inside the same grid that holds the cards and dots. A grid item spanning every column occupies that entire row in the auto-placement algorithm, so sibling items relying on auto-placement (rather than an explicit `grid-column`) get pushed into implicit extra rows/columns to find free space — in a real build this made every dot cluster in the wrong place instead of spreading one-per-milestone along the spine. Pull the spine line out of the grid entirely: give it `position: absolute` inside a `position: relative` wrapper around the grid, so it draws as a visual line behind the content without participating in grid placement at all.
+
 ---
 
 ## Layered / Stack

@@ -29,6 +29,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [The BCG Growth-Share Matrix](examples/bcg-matrix-ink-marker/note.html) | Matrix / Quadrant | Ink & Marker |
 | [Which Memory Should Your AI Agent Use?](examples/agent-memory-decision-tree-bmc-helix/note.html) | Decision Tree | BMC Helix |
 | [Nuclear Fission vs. Fusion](examples/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
+| [Detecting Gravitational Waves](examples/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
 
 <table>
 <tr>
@@ -94,6 +95,16 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 ![Nuclear fission versus fusion comparison in Blueprint style](examples/fission-vs-fusion-blueprint/preview.png)
 
 </td>
+</tr>
+<tr>
+<td width="50%">
+
+**Timeline — Pastel Lab**
+
+![Detecting gravitational waves timeline in Pastel Lab style](examples/gravitational-waves-timeline-pastel-lab/preview.png)
+
+</td>
+<td width="50%"></td>
 </tr>
 </table>
 

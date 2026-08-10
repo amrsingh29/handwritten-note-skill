@@ -1,0 +1,202 @@
+<meta charset="utf-8">
+<title>Detecting Gravitational Waves</title>
+<style>
+  :root {
+    --paper: #fbfbfd;
+    --paper-line: #ecedf3;
+    --ink: #2a2d3a;
+    --ink-soft: #6b7080;
+    --accent-1: #b8a4e3;
+    --accent-2: #9fd8c4;
+    --accent-3: #a8cbef;
+    --accent-4: #f3b8a0;
+    --card-bg: #ffffff;
+    --shadow: rgba(30, 32, 45, 0.10);
+  }
+  :root[data-theme="dark"] {
+    --paper: #191a22; --paper-line: #262835;
+    --ink: #eceefb; --ink-soft: #a7abc2;
+    --accent-1: #c9b8ee; --accent-2: #a9e6d2;
+    --accent-3: #b9d9f5; --accent-4: #f6c8b3;
+    --card-bg: #21232f; --shadow: rgba(0,0,0,0.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #191a22; --paper-line: #262835;
+      --ink: #eceefb; --ink-soft: #a7abc2;
+      --accent-1: #c9b8ee; --accent-2: #a9e6d2;
+      --accent-3: #b9d9f5; --accent-4: #f6c8b3;
+      --card-bg: #21232f; --shadow: rgba(0,0,0,0.5);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 40px 24px 56px;
+  }
+
+  .sheet { max-width: 1100px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.68rem; font-weight: 700;
+    color: var(--ink-soft); text-align: center;
+  }
+  h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); text-align: center; margin: 6px 0 4px; text-wrap: balance; }
+  .rule { width: 70px; height: 3px; background: var(--accent-1); border-radius: 2px; margin: 8px auto 30px; }
+
+  .intro {
+    max-width: 620px; margin: 0 auto 46px; text-align: center;
+    font-size: 1.06rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .intro b { color: var(--accent-1); }
+
+  /* --- Timeline --- */
+  .timeline-wrap { position: relative; }
+  .spine-track {
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 2px;
+    background: var(--paper-line);
+    z-index: 0;
+  }
+
+  .timeline {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: auto auto auto;
+    column-gap: 10px;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .dot-wrap {
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+  }
+  .dot {
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--dot-color, var(--accent-1));
+    border: 3px solid var(--card-bg);
+    box-shadow: 0 0 0 1.5px var(--dot-color, var(--accent-1));
+  }
+  .dot.major {
+    width: 24px; height: 24px;
+    box-shadow: 0 0 0 2px var(--dot-color, var(--accent-1)), 0 0 0 6px color-mix(in srgb, var(--dot-color, var(--accent-1)) 25%, transparent);
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1.5px solid var(--ink);
+    border-radius: 12px;
+    padding: 14px 15px 16px;
+    font-size: 0.86rem;
+    line-height: 1.4;
+  }
+  .card.above { grid-row: 1; margin-bottom: 14px; align-self: end; }
+  .card.below { grid-row: 3; margin-top: 14px; }
+  .card .year {
+    display: inline-block;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800; font-size: 0.72rem; letter-spacing: 0.04em;
+    color: var(--dot-color, var(--accent-1));
+    background: color-mix(in srgb, var(--dot-color, var(--accent-1)) 30%, transparent);
+    padding: 2px 8px; border-radius: 6px; margin-bottom: 6px;
+  }
+  .card h3 { margin: 4px 0 4px; font-size: 1rem; }
+  .card p { margin: 0; color: var(--ink-soft); }
+  .empty-cell { grid-row: 1; }
+  .empty-cell.below { grid-row: 3; }
+
+  .footer-banner {
+    margin-top: 40px; text-align: center;
+    border: 1.5px solid var(--ink);
+    border-radius: 40px; padding: 14px 24px;
+    background: var(--card-bg); box-shadow: 3px 4px 0 var(--shadow);
+    font-size: 1.02rem;
+  }
+  .footer-banner .accent { color: var(--accent-1); font-weight: 700; }
+
+  @media (max-width: 820px) {
+    .timeline {
+      grid-template-columns: 1fr;
+      grid-template-rows: none;
+      gap: 0;
+    }
+    .spine-track { display: none; }
+    .dot-wrap { grid-row: auto; grid-column: 1; justify-content: flex-start; padding-left: 8px; }
+    .card.above, .card.below, .empty-cell { grid-row: auto; grid-column: 1; margin: 0 0 4px 34px; }
+    .empty-cell { display: none; }
+    .milestone-mobile { display: flex; flex-direction: column; margin-bottom: 18px; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>Detecting Gravitational Waves</h1>
+  <div class="rule"></div>
+
+  <p class="intro">
+    Einstein predicted them in 1916 and doubted anyone would ever measure them.
+    It took <b>99 years</b> and a machine sensitive to a fraction of a proton's width to prove him right.
+  </p>
+
+  <div class="timeline-wrap">
+  <div class="spine-track"></div>
+  <div class="timeline">
+    <div class="empty-cell below"></div>
+    <div class="card above" style="--dot-color: var(--accent-1);">
+      <span class="year">1916</span>
+      <h3>Einstein Predicts Them</h3>
+      <p>General relativity implies massive accelerating objects should ripple spacetime itself — but Einstein thought the effect would be far too weak to ever detect.</p>
+    </div>
+    <div class="dot-wrap"><div class="dot" style="--dot-color: var(--accent-1);"></div></div>
+
+    <div class="card below" style="--dot-color: var(--accent-3);">
+      <span class="year">1974</span>
+      <h3>First Indirect Evidence</h3>
+      <p>The Hulse–Taylor binary pulsar's orbit decays exactly as gravitational-wave emission would predict — a Nobel-winning clue, but not a direct detection.</p>
+    </div>
+    <div class="empty-cell"></div>
+    <div class="dot-wrap"><div class="dot" style="--dot-color: var(--accent-3);"></div></div>
+
+    <div class="empty-cell below"></div>
+    <div class="card above" style="--dot-color: var(--accent-4);">
+      <span class="year">1990s</span>
+      <h3>LIGO Is Built</h3>
+      <p>Twin L-shaped detectors, each arm 4 km long, built in the US to measure distortions smaller than 1/10,000th the width of a proton.</p>
+    </div>
+    <div class="dot-wrap"><div class="dot" style="--dot-color: var(--accent-4);"></div></div>
+
+    <div class="card below" style="--dot-color: var(--accent-2);">
+      <span class="year">Sep 2015</span>
+      <h3>First Direct Detection</h3>
+      <p>LIGO catches the unmistakable "chirp" of two black holes, 1.3 billion light-years away, merging into one. Einstein was right all along.</p>
+    </div>
+    <div class="empty-cell"></div>
+    <div class="dot-wrap"><div class="dot major" style="--dot-color: var(--accent-2);"></div></div>
+
+    <div class="empty-cell below"></div>
+    <div class="card above" style="--dot-color: var(--accent-1);">
+      <span class="year">2017</span>
+      <h3>Nobel Prize & a New Astronomy</h3>
+      <p>The detection earns the Nobel Prize in Physics. Months later, a neutron-star merger is seen in gravitational waves <i>and</i> light for the first time.</p>
+    </div>
+    <div class="dot-wrap"><div class="dot" style="--dot-color: var(--accent-1);"></div></div>
+  </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ The <span class="accent">2015 detection</span> didn't just confirm a theory — it opened an entirely new way of observing the universe.
+  </div>
+</div>
