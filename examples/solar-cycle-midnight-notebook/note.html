@@ -1,0 +1,216 @@
+<meta charset="utf-8">
+<title>The Sun's 11-Year Cycle</title>
+<style>
+  :root {
+    --paper: #0b1830;
+    --paper-line: #1a2b4a;
+    --ink: #f0ead6;
+    --ink-soft: #9fb0c8;
+    --accent-1: #e8b04b;
+    --accent-2: #5fd4d6;
+    --accent-3: #c98bd6;
+    --accent-4: #7ea8e0;
+    --card-bg: #101f3d;
+    --shadow: rgba(0, 0, 0, 0.5);
+  }
+  :root[data-theme="light"] {
+    --paper: #14264a;
+    --paper-line: #22355c;
+    --ink: #f5efdf;
+    --ink-soft: #b7c4da;
+    --card-bg: #16294f;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      radial-gradient(circle at 20% 15%, rgba(232,176,75,0.06), transparent 55%),
+      radial-gradient(circle at 85% 80%, rgba(95,212,214,0.05), transparent 55%),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 1080px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.2vw, 3.1rem);
+    text-align: center;
+    margin: 6px 0 4px;
+    text-wrap: balance;
+  }
+
+  .rule-svg { display: block; margin: -4px auto 18px; width: min(480px, 76%); }
+
+  .intro {
+    max-width: 620px;
+    margin: 0 auto 36px;
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .intro b { color: var(--accent-1); }
+
+  /* --- Cycle / Loop --- */
+  .cycle-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 1 / 1;
+    margin: 60px auto 70px;
+  }
+
+  .cycle-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cycle-lines path {
+    fill: none;
+    stroke: var(--ink-soft);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.75;
+  }
+  .cycle-lines path.loop-back {
+    stroke: var(--accent-1);
+    stroke-dasharray: 1 7;
+    opacity: 0.9;
+  }
+  .cycle-lines marker path { stroke: none; }
+
+  .center-note {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 168px;
+    text-align: center;
+    z-index: 3;
+  }
+  .center-note .sun {
+    font-size: 2rem;
+    margin-bottom: 4px;
+  }
+  .center-note .invariant {
+    font-size: 0.92rem;
+    line-height: 1.3;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  .stage {
+    position: absolute;
+    width: 210px;
+    background: var(--card-bg);
+    border: 2.5px solid var(--stage-color);
+    border-radius: 14px 16px 15px 14px / 16px 14px 17px 13px;
+    box-shadow: 3px 5px 0 var(--shadow);
+    padding: 15px 17px 17px;
+    z-index: 2;
+  }
+  .stage .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--stage-color);
+    margin-bottom: 4px;
+  }
+  .stage h3 { margin: 0 0 4px; font-size: 1.1rem; }
+  .stage p { margin: 0; font-size: 0.87rem; line-height: 1.38; color: var(--ink-soft); }
+
+  .p1 { top: 10%;  left: 50%;  transform: translate(-50%, -68%); }
+  .p2 { top: 50%;  left: 90%;  transform: translate(-8%, -50%); }
+  .p3 { top: 90%;  left: 50%;  transform: translate(-50%, -32%); }
+  .p4 { top: 50%;  left: 10%;  transform: translate(-92%, -50%); }
+
+  .footer-banner {
+    margin-top: 6px;
+    text-align: center;
+    border: 2.5px solid var(--accent-2);
+    border-radius: 40px;
+    padding: 14px 24px;
+    background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.08rem;
+  }
+  .footer-banner .accent { color: var(--accent-2); font-weight: 700; }
+
+  .mobile-list { display: none; }
+
+  @media (max-width: 760px) {
+    .cycle-wrap { display: none; }
+    .mobile-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      max-width: 480px;
+      margin: 0 auto 26px;
+    }
+    .mobile-list .stage { position: static; width: 100%; }
+    .mobile-list .center-note { position: static; transform: none; width: 100%; margin-bottom: 4px; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>The Sun's 11-Year Cycle</h1>
+  <svg class="rule-svg" viewBox="0 0 480 20" preserveAspectRatio="none">
+    <path d="M4 12 C 120 3, 270 18, 476 8" fill="none" stroke="var(--accent-1)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <p class="intro">
+    The Sun isn't constant — it swings between <b>calm</b> and <b>violent</b> on a clock,
+    and we're currently living through the rising side of it.
+  </p>
+
+  <div class="cycle-wrap">
+    <svg class="cycle-lines" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <path d="M50 10 A 40 40 0 0 1 90 50" />
+      <path d="M90 50 A 40 40 0 0 1 50 90" />
+      <path d="M50 90 A 40 40 0 0 1 10 50" />
+      <path class="loop-back" d="M10 50 A 40 40 0 0 1 50 10" />
+    </svg>
+
+    <div class="center-note">
+      <div class="sun">☀︎</div>
+      <div class="invariant">~11 years, then the poles flip and it starts again</div>
+    </div>
+
+    <div class="stage p1" style="--stage-color: var(--accent-1);">
+      <div class="num">quiet sun</div>
+      <h3>Solar Minimum</h3>
+      <p>Few sunspots, a calm magnetic field. The sun looks almost featureless.</p>
+    </div>
+    <div class="stage p2" style="--stage-color: var(--accent-4);">
+      <div class="num">building up</div>
+      <h3>Rising Phase</h3>
+      <p>The internal magnetic field tangles and strengthens; sunspots start multiplying.</p>
+    </div>
+    <div class="stage p3" style="--stage-color: var(--accent-3);">
+      <div class="num">peak activity</div>
+      <h3>Solar Maximum</h3>
+      <p>Sunspots, solar flares, and coronal mass ejections all peak — the sun at its most violent.</p>
+    </div>
+    <div class="stage p4" style="--stage-color: var(--accent-2);">
+      <div class="num">winding down</div>
+      <h3>Declining Phase</h3>
+      <p>Activity fades as the tangled field untangles — heading back toward minimum.</p>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Solar Cycle 25 began in 2020 — we're watching this exact loop happen <span class="accent">right now</span>.
+  </div>
+</div>

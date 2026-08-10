@@ -44,6 +44,8 @@ For a 4-6 step cycle, a literal circular CSS/SVG layout works; for simpler taste
 
 Put a short label at the center or below the ring naming what's constant across iterations (e.g. "the loop that never stops" or the invariant the cycle preserves) — this is the payoff of choosing Cycle over Flow, don't skip it.
 
+**Geometry, if drawing a literal circle with SVG arcs**: anchor the four (or however many) stage cards at symmetric cardinal points on the circle — e.g. in a `viewBox="0 0 100 100"`, top `(50,10)`, right `(90,50)`, bottom `(50,90)`, left `(10,50)` — and connect them with plain `A` (arc) commands between those exact points: `M50,10 A40,40 0 0,1 90,50` and so on around. Asymmetric or hand-tuned bezier curves between mismatched points are what caused a real bug during testing — the loop-back arrow drifted outside the container and overlapped the header text. Give the wrapping container generous top/bottom margin (not just internal padding) before adding cards, since cards are positioned with `transform: translate()` and can extend outside the container's own box — overlap with the title or footer above/below is easy to miss until you actually render it.
+
 ---
 
 ## Hub & Spoke
