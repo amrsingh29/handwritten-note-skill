@@ -6,6 +6,8 @@ You know the topic. You could write three paragraphs about it. Nobody's going to
 
 Ask for an explainer. Get back something you'd screenshot and send to a group chat.
 
+![Demo: install the skill, ask a question, get a visual explainer back](assets/demo.gif)
+
 ---
 
 ## What it actually does
