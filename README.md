@@ -1,47 +1,138 @@
-# Handwritten Note Skill
+# ✏️ Handwritten Note
 
-A Claude Code skill that turns any topic or concept into a simple, visual explainer —
-rendered as a modern "hand-drawn note" style page (or other layouts), auto-selecting
-the best layout template for the topic's shape.
+**Turn any concept into something you'd actually want to read.**
 
-## Status
+You know the topic. You could write three paragraphs about it. Nobody's going to read three paragraphs. This is a [Claude Code](https://claude.com/claude-code) skill that instead turns your topic into a single, self-contained page that looks like a smart friend sketched it out on a napkin — except the napkin has a real design system, works in dark mode, and doesn't run out of room halfway through.
 
-Skill implemented. See `skill/SKILL.md` for the workflow, `skill/references/layouts.md`
-for the six layout templates, and `skill/references/brands.md` for the six visual brands.
+Ask for an explainer. Get back something you'd screenshot and send to a group chat.
 
-## Layout templates (planned)
+---
 
-- **Flow / Steps** — linear process, numbered cards connected by arrows
-- **Cycle / Loop** — process that repeats, arrows loop back to the start
-- **Hub & Spoke** — one core concept with related ideas branching out
-- **Comparison / Before-After** — two things contrasted directly
-- **Timeline** — chronological milestones
-- **Layered / Stack** — things that sit on top of each other (architecture-style)
+## What it actually does
 
-The skill auto-picks the layout based on the topic's shape.
+Every time you invoke it, the skill makes two decisions before writing a line of code:
 
-## Visual brand options (planned)
+1. **What shape is this content?** A process, a cycle, a comparison, a timeline, a hub of related ideas, a stack of layers — it reads your topic and picks the layout that makes a reader's life easiest, not the one that looks the coolest.
+2. **What should this look like?** It asks you — brand is a matter of taste, not something worth guessing at.
 
-The skill asks which brand to use each time (not auto-picked):
+Then it writes a complete, responsive, light/dark-theme-aware HTML page and publishes it as an Artifact you can look at immediately.
 
-- **Field Notes** — warm cream paper, handwritten font, teal/coral/gold/plum rotation
-- **Chalkboard** — dark board, chalk-white ink, pastel chalk accents
-- **Sticky Wall** — sticky-note colored cards on a light background
-- **Ink & Marker** — stark white, bold black lettering, single loud accent
-- **Midnight Notebook** — dark navy background, gold/cyan ink
-- **BMC Helix** — hand-drawn styling/layout, recolored with the BMC Helix brand
-  palette (Orange `#FF5A4D`, Midnight `#052140`, Electric Blue `#4040D9`,
-  Plum `#914796`, Medium Blue `#264580`, Sky `#EDFBFF`, Cloud `#F7F8FD`)
+## See it in action
 
-## Directory structure
+| Topic | Layout | Brand |
+|---|---|---|
+| [How a Vector Database Finds Things](examples/vector-db-field-notes/note.html) | Flow / Steps | Field Notes |
+| [How a Vector Database Finds Things](examples/vector-db-bmc-helix/note.html) | Flow / Steps | BMC Helix |
+| [The Building Blocks of an AI Agent](examples/ai-agent-building-blocks-chalkboard/note.html) | Hub & Spoke | Chalkboard |
+| [The Sun's 11-Year Cycle](examples/solar-cycle-midnight-notebook/note.html) | Cycle / Loop | Midnight Notebook |
+
+<table>
+<tr>
+<td width="50%">
+
+**Flow — Field Notes**
+
+![Vector database explainer in Field Notes style](examples/vector-db-field-notes/preview.png)
+
+</td>
+<td width="50%">
+
+**Flow — BMC Helix**
+
+![Vector database explainer in BMC Helix style](examples/vector-db-bmc-helix/preview.png)
+
+</td>
+</tr>
+<tr>
+<td width="50%">
+
+**Hub & Spoke — Chalkboard**
+
+![AI agent building blocks in Chalkboard style](examples/ai-agent-building-blocks-chalkboard/preview.png)
+
+</td>
+<td width="50%">
+
+**Cycle — Midnight Notebook**
+
+![The Sun's 11-year cycle in Midnight Notebook style](examples/solar-cycle-midnight-notebook/preview.png)
+
+</td>
+</tr>
+</table>
+
+Same skill, same rigor, wildly different vibes. That's the point.
+
+## The layouts
+
+Picked automatically, based on what your content actually is — not habit:
+
+| Your content is... | You get... |
+|---|---|
+| A happens, then B, then C | 🔀 **Flow / Steps** |
+| A process that repeats forever | 🔁 **Cycle / Loop** |
+| One idea, several independent facets | 🕸️ **Hub & Spoke** |
+| Two things, contrasted directly | ⚖️ **Comparison** |
+| Events in order, across time | 📅 **Timeline** |
+| Things built on top of each other | 🧱 **Layered / Stack** |
+
+## The brands
+
+Picked by *you*, every time:
+
+- **Field Notes** — warm cream paper, handwritten scrawl, journal energy
+- **Chalkboard** — dark board, chalk dust, "welcome to lecture" energy
+- **Sticky Wall** — real sticky-note colors, sprint-retro energy
+- **Ink & Marker** — stark white, one loud color, whiteboard-pitch energy
+- **Midnight Notebook** — deep navy, gold ink, "this cost money" energy
+- **BMC Helix** — the actual BMC Helix brand palette, hand-drawn anyway
+
+Full color tokens for each live in [`skill/references/brands.md`](skill/references/brands.md).
+
+## Using it in Claude Code
+
+**1. Get the skill onto your machine.**
+
+```bash
+git clone https://github.com/amrsingh29/handwritten-note-skill.git
+ln -s "$(pwd)/handwritten-note-skill/skill" ~/.claude/skills/handwritten-note
+```
+
+That symlink means `git pull` here keeps your live skill current — no reinstalling.
+
+**2. Start a new Claude Code session** (skills are picked up at session start).
+
+**3. Just ask.** No slash command required — say things like:
+
+> "Explain how OAuth works, simply"
+> "Make a one-pager for how CRISPR works"
+> "Can you sketch out the CAP theorem for me?"
+> "Explain this in BMC Helix style" *(names the brand up front — skips the question)*
+
+Claude will pick a layout, ask which brand you want (unless you already named one), build the page, sanity-check it, and hand you a live Artifact.
+
+**4. Want it saved for later?** Just ask — it'll drop a `note.html` + a `preview.png` screenshot into `examples/<topic>-<brand>/` in this repo, ready to commit.
+
+## Repo layout
 
 ```
 handwritten-note-skill/
-├── README.md
+├── README.md                 you are here
 ├── skill/
-│   ├── SKILL.md              # workflow: pick layout, pick brand, build, check
+│   ├── SKILL.md               the workflow Claude follows, step by step
 │   └── references/
-│       ├── layouts.md        # 6 layout template skeletons
-│       └── brands.md         # 6 visual brand token sets
-└── examples/                 # reference outputs (Flow template, two brands)
+│       ├── layouts.md         the six layout skeletons + when to use each
+│       └── brands.md          the six color systems, tokens and all
+└── examples/                  every note that's actually been built and approved
+    └── <topic>-<brand>/
+        ├── note.html
+        └── preview.png
 ```
+
+## Adding a new brand or layout
+
+Both reference files are living documents. Ask Claude for something new ("make a brand that looks like a ransom note") and it'll add it to the right file in the same shape as the existing entries — so your next note in that style stays consistent with this one, instead of getting reinvented from scratch.
+
+---
+
+*Built one topic at a time. If a note in here taught you something in ten seconds flat, it did its job.*
