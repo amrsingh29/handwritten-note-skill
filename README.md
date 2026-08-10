@@ -30,6 +30,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [Which Memory Should Your AI Agent Use?](examples/agent-memory-decision-tree-bmc-helix/note.html) | Decision Tree | BMC Helix |
 | [Nuclear Fission vs. Fusion](examples/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
 | [Detecting Gravitational Waves](examples/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
+| [The OSI Model, Layer by Layer](examples/osi-model-sunset-deck/note.html) | Layered / Stack | Sunset Deck |
 
 <table>
 <tr>
@@ -104,7 +105,13 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 ![Detecting gravitational waves timeline in Pastel Lab style](examples/gravitational-waves-timeline-pastel-lab/preview.png)
 
 </td>
-<td width="50%"></td>
+<td width="50%">
+
+**Layered / Stack — Sunset Deck**
+
+![The OSI model as a layered stack in Sunset Deck style](examples/osi-model-sunset-deck/preview.png)
+
+</td>
 </tr>
 </table>
 
