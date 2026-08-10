@@ -1,0 +1,355 @@
+<title>How Vector Databases Work</title>
+<style>
+  :root {
+    --paper: #f6f2e9;
+    --paper-line: #dcd3bf;
+    --ink: #1e2a38;
+    --ink-soft: #4a5b6b;
+    --teal: #0f8b8d;
+    --coral: #e4572e;
+    --gold: #e8a33d;
+    --plum: #6a4c93;
+    --card-bg: #fffdf8;
+    --shadow: rgba(30, 42, 56, 0.16);
+  }
+  :root[data-theme="dark"] {
+    --paper: #1b2027;
+    --paper-line: #323a45;
+    --ink: #eee7d8;
+    --ink-soft: #a9b4c0;
+    --teal: #4fd1ce;
+    --coral: #ff8360;
+    --gold: #f2bd6c;
+    --plum: #b79ceb;
+    --card-bg: #232a33;
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1b2027;
+      --paper-line: #323a45;
+      --ink: #eee7d8;
+      --ink-soft: #a9b4c0;
+      --teal: #4fd1ce;
+      --coral: #ff8360;
+      --gold: #f2bd6c;
+      --plum: #b79ceb;
+      --card-bg: #232a33;
+      --shadow: rgba(0, 0, 0, 0.45);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 34px,
+        var(--paper-line) 35px
+      ),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 28px 20px 40px;
+  }
+
+  .sheet {
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  header.hero {
+    text-align: center;
+    margin-bottom: 6px;
+  }
+
+  h1 {
+    font-size: clamp(2.1rem, 4.5vw, 3.3rem);
+    margin: 4px 0 2px;
+    text-wrap: balance;
+    color: var(--ink);
+    position: relative;
+    display: inline-block;
+  }
+
+  .underline-svg {
+    display: block;
+    margin: -6px auto 18px;
+    width: min(560px, 80%);
+  }
+
+  .intro {
+    max-width: 640px;
+    margin: 0 auto 30px;
+    text-align: center;
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    line-height: 1.5;
+  }
+  .intro b { color: var(--teal); }
+  .intro .accent2 { color: var(--coral); }
+
+  .grid-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 26px 34px;
+    position: relative;
+    margin-bottom: 10px;
+  }
+
+  .with-sidebar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 260px;
+    gap: 30px;
+    align-items: start;
+  }
+
+  .flow-col {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    position: relative;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 2.5px solid var(--card-color, var(--teal));
+    border-radius: 14px 16px 15px 14px / 16px 14px 17px 13px;
+    padding: 18px 20px 20px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    position: relative;
+    transform: rotate(var(--tilt, -0.6deg));
+  }
+
+  .card .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--card-color, var(--teal));
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+  }
+
+  .card .num .dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--card-color, var(--teal));
+    color: var(--card-bg);
+    font-family: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.68rem;
+  }
+
+  .card h3 {
+    margin: 0 0 6px;
+    font-size: 1.32rem;
+    color: var(--ink);
+  }
+
+  .card p {
+    margin: 0;
+    font-size: 1.02rem;
+    line-height: 1.42;
+    color: var(--ink-soft);
+  }
+
+  .card .egg {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: var(--card-color, var(--teal));
+    font-weight: 700;
+  }
+
+  .connector {
+    position: relative;
+    align-self: center;
+    height: 46px;
+  }
+  .connector svg { width: 100%; height: 100%; overflow: visible; }
+
+  .vconnector {
+    display: flex;
+    justify-content: center;
+    margin: -14px 0;
+  }
+  .vconnector svg { width: 80px; height: 40px; }
+
+  aside.sidebar {
+    background: var(--card-bg);
+    border: 2.5px solid var(--gold);
+    border-radius: 16px 14px 18px 15px / 14px 18px 13px 16px;
+    padding: 20px 22px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    transform: rotate(0.7deg);
+  }
+
+  aside.sidebar h4 {
+    margin: 0 0 12px;
+    font-size: 1.25rem;
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  aside.sidebar ul {
+    margin: 0;
+    padding-left: 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  aside.sidebar li {
+    font-size: 1.02rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+  }
+  aside.sidebar li b { color: var(--ink); }
+
+  .footer-banner {
+    margin-top: 34px;
+    text-align: center;
+    border: 2.5px solid var(--plum);
+    border-radius: 40px;
+    padding: 14px 24px;
+    background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .footer-banner .accent { color: var(--plum); font-weight: 700; }
+
+  .heart-note {
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin: 22px 0 6px;
+    font-style: italic;
+  }
+
+  @media (max-width: 860px) {
+    .row, .grid-wrap { grid-template-columns: 1fr; }
+    .connector { display: none; }
+    .with-sidebar { grid-template-columns: 1fr; }
+    .vconnector { display: flex; }
+  }
+</style>
+
+<div class="sheet">
+  <header class="hero">
+    <div class="label" style="margin-bottom:6px;">a field note on</div>
+    <h1>How a Vector Database Finds Things</h1>
+    <svg class="underline-svg" viewBox="0 0 560 20" preserveAspectRatio="none">
+      <path d="M4 12 C 140 4, 300 18, 556 8" fill="none" stroke="var(--coral)" stroke-width="4" stroke-linecap="round"/>
+    </svg>
+  </header>
+
+  <p class="intro">
+    A vector database doesn't read words the way you do — it turns everything into
+    <b>points in space</b>, then answers questions by finding what's
+    <span class="accent2">standing nearby</span>.
+  </p>
+
+  <div class="with-sidebar">
+    <div class="flow-col">
+      <div class="row">
+        <div class="card" style="--card-color: var(--teal); --tilt: -1.1deg;">
+          <div class="num"><span class="dot">1</span> you bring</div>
+          <h3>Raw stuff</h3>
+          <p>A sentence, an image, a product description — anything messy and human.</p>
+          <div class="egg">"a cozy red armchair"</div>
+        </div>
+        <div class="connector">
+          <svg viewBox="0 0 100 46"><path d="M4 23 C 30 4, 55 40, 96 23" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M88 15 L97 23 L87 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card" style="--card-color: var(--coral); --tilt: 0.9deg;">
+          <div class="num"><span class="dot">2</span> an embedding model</div>
+          <h3>Turns it into numbers</h3>
+          <p>A list of a few hundred numbers that captures its <i>meaning</i>, not its spelling.</p>
+          <div class="egg">[0.12, −0.87, 0.44, …]</div>
+        </div>
+      </div>
+
+      <div class="vconnector">
+        <svg viewBox="0 0 80 40"><path d="M40 2 C 20 14, 60 26, 40 38" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M32 30 L40 39 L48 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="row">
+        <div class="card" style="--card-color: var(--gold); --tilt: -0.8deg;">
+          <div class="num"><span class="dot">3</span> that number-list</div>
+          <h3>Becomes a point</h3>
+          <p>Plotted in a space with hundreds of dimensions — one dot per thing you stored.</p>
+          <div class="egg">similar meaning = closer dots</div>
+        </div>
+        <div class="connector">
+          <svg viewBox="0 0 100 46"><path d="M4 23 C 30 4, 55 40, 96 23" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M88 15 L97 23 L87 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div class="card" style="--card-color: var(--plum); --tilt: 1deg;">
+          <div class="num"><span class="dot">4</span> your search</div>
+          <h3>Also becomes a point</h3>
+          <p>The database embeds your query the exact same way, dropping it into the same space.</p>
+          <div class="egg">"a comfy warm chair" → nearby dot</div>
+        </div>
+      </div>
+
+      <div class="vconnector">
+        <svg viewBox="0 0 80 40"><path d="M40 2 C 20 14, 60 26, 40 38" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="1 9"/><path d="M32 30 L40 39 L48 30" fill="none" stroke="var(--ink-soft)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+
+      <div class="row" style="grid-template-columns: 1fr 1fr;">
+        <div class="card" style="--card-color: var(--teal); --tilt: -0.6deg;">
+          <div class="num"><span class="dot">5</span> the database</div>
+          <h3>Finds the nearest dots</h3>
+          <p>It measures distance between your query point and every stored point — fast, even across millions.</p>
+          <div class="egg">"nearest neighbor" search</div>
+        </div>
+        <div class="card" style="--card-color: var(--coral); --tilt: 0.7deg;">
+          <div class="num"><span class="dot">6</span> you get back</div>
+          <h3>The closest matches</h3>
+          <p>Results ranked by how near they sit — even if they don't share a single word with your query.</p>
+          <div class="egg">meaning found, not keywords</div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="sidebar">
+      <h4>Why it matters</h4>
+      <ul>
+        <li><b>No exact words needed</b> — "chair" and "seat" can land right next to each other.</li>
+        <li><b>Scales to millions</b> of points using index tricks instead of checking everything one by one.</li>
+        <li><b>Powers</b> semantic search, recommendations, and giving AI models relevant memory.</li>
+      </ul>
+    </aside>
+  </div>
+
+  <p class="heart-note">The closer two dots sit, the more alike their meaning — that's the whole trick.</p>
+
+  <div class="footer-banner">
+    ✎ A vector database doesn't search for <span class="accent">matching text</span> — it searches for <span class="accent">matching meaning</span>.
+  </div>
+</div>
