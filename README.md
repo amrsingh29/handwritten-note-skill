@@ -213,4 +213,6 @@ Both reference files are living documents. Ask Claude for something new ("make a
 
 ---
 
+Licensed under [MIT](LICENSE).
+
 *Built one topic at a time. If a note in here taught you something in ten seconds flat, it did its job.*
