@@ -53,6 +53,17 @@ Combine the layout skeleton from `references/layouts.md` with the color tokens f
 
 Reread the page as if you were the intended reader, not the author: does the thesis line alone tell someone what this note is about? Does each chunk stand on its own without needing the others read first? Is there any card whose text got cut or overflowed at typical viewport widths? Fix before showing the user.
 
+## Step 6 — Save the output as a new example
+
+Every note this skill produces becomes a reference example, so save it into the repo rather than leaving it only as a published Artifact:
+
+1. Make a new folder at `examples/<topic-slug>-<brand-slug>/` in the `handwritten-note-skill` repo (e.g. `examples/ai-agent-components-field-notes/`), using kebab-case derived from the topic and chosen brand.
+2. Copy the final HTML file into that folder as `note.html`.
+3. Capture a PNG of the rendered result: open the HTML (or the published Artifact URL) in the Browser pane and take a screenshot, saving it into the same folder as `preview.png`. This gives the example a thumbnail that's readable without opening the HTML.
+4. If asked to sync to GitHub, commit both files together with a message naming the topic and brand (e.g. `feat: add AI agent components example (Field Notes)`), and push.
+
+Don't create the folder speculatively before the note is finished — only once Step 5's check has passed and the user has seen the result, so examples/ only accumulates notes that actually worked.
+
 ## Adding a new brand or layout later
 
 Both reference files are meant to grow. If the user asks for a new brand ("make one that looks like X") or a new layout, add it to the relevant reference file the same way the existing entries are structured — named tokens/skeleton plus a one-line "when to use this" note — rather than improvising it inline each time. That keeps future notes in that brand/layout consistent with this one.
