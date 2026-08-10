@@ -118,8 +118,15 @@ Picked by *you*, every time:
 - **Ink & Marker** — stark white, one loud color, whiteboard-pitch energy
 - **Midnight Notebook** — deep navy, gold ink, "this cost money" energy
 - **BMC Helix** — the actual BMC Helix brand palette, hand-drawn anyway
+- **Terracotta Studio** — plaster white, terracotta & sage, ceramics-workshop energy
+- **Botanical Press** — soft sage paper, dusty rose & mustard, field-guide energy
+- **Neon Arcade** — near-black, glowing magenta/cyan/lime, retro-cabinet energy
+- **Newsprint** — off-white newsprint, one masthead red, "breaking news" energy
+- **Pastel Lab** — clean white, soft pastels, science-poster energy
+- **Blueprint** — deep blueprint blue, precise cyan linework, engineering-grade energy
+- **Sunset Deck** — dusk-to-orange gradient, gold ink, pitch-deck-cover energy
 
-Full color tokens for each live in [`skill/references/brands.md`](skill/references/brands.md).
+Thirteen brands now — that's more than fits in a typical multiple-choice prompt, so Claude will usually show you a handful of well-differentiated options and let you name any of the rest directly. Full color tokens for each live in [`skill/references/brands.md`](skill/references/brands.md).
 
 ## Using it in Claude Code
 
@@ -153,8 +160,8 @@ handwritten-note-skill/
 ├── skill/
 │   ├── SKILL.md               the workflow Claude follows, step by step
 │   └── references/
-│       ├── layouts.md         the six layout skeletons + when to use each
-│       └── brands.md          the six color systems, tokens and all
+│       ├── layouts.md         nine layout skeletons + when to use each
+│       └── brands.md          thirteen color systems, tokens and all
 └── examples/                  every note that's actually been built and approved
     └── <topic>-<brand>/
         ├── note.html

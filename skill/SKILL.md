@@ -39,8 +39,17 @@ If a topic could fit two templates, pick the one that makes the *reader's* job e
 - **Ink & Marker** — stark white, bold black lettering, one loud accent color. Punchy, minimal.
 - **Midnight Notebook** — dark navy default background, gold/cyan ink. Premium, technical.
 - **BMC Helix** — same hand-drawn styling and layout mechanics as Field Notes, but recolored with the BMC Helix brand palette (see `references/brands.md` for exact tokens and usage rules). Use this whenever the user says "Helix," "BMC," or names the company brand.
+- **Terracotta Studio** — warm plaster white, terracotta/sage/ochre accents. Earthy, hand-crafted feel.
+- **Botanical Press** — soft sage paper, deep forest ink, dusty rose and mustard accents. Field-guide feel.
+- **Neon Arcade** — near-black background, glowing magenta/cyan/lime accents. High-energy, playful.
+- **Newsprint** — off-white newsprint, black ink, one masthead-red accent. Vintage, declarative — good for myth-busting content.
+- **Pastel Lab** — clean white/light grey, soft pastel accents with thin outlines. Friendly, science-poster feel.
+- **Blueprint** — deep blueprint-blue, white/cyan technical linework, non-handwritten monospace/sans type. Engineering-grade.
+- **Sunset Deck** — warm dusk-to-orange gradient background, cream ink, gold accent. Aspirational, cinematic.
 
-Read `references/brands.md` for the exact color tokens, font stacks, and any usage constraints (e.g. BMC Helix's "orange is accent-only, never dominant" rule) for whichever brand is chosen.
+If offering a menu via a UI limited to a small number of options (e.g. AskUserQuestion's 4-option cap), show 3-4 well-differentiated choices and mention in the question text that other named brands are also available — don't silently drop brands from consideration just because they don't fit in the widget.
+
+Read `references/brands.md` for the exact color tokens, font stacks, and any usage constraints (e.g. BMC Helix's "orange is accent-only, never dominant" rule, or Blueprint's "don't use the handwritten font" exception) for whichever brand is chosen.
 
 ## Step 4 — Build it
 
