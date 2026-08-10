@@ -25,6 +25,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [How a Vector Database Finds Things](examples/vector-db-bmc-helix/note.html) | Flow / Steps | BMC Helix |
 | [The Building Blocks of an AI Agent](examples/ai-agent-building-blocks-chalkboard/note.html) | Hub & Spoke | Chalkboard |
 | [The Sun's 11-Year Cycle](examples/solar-cycle-midnight-notebook/note.html) | Cycle / Loop | Midnight Notebook |
+| [Black Holes, at Three Zoom Levels](examples/black-holes-zoom-field-notes/note.html) | Zoom Levels | Field Notes |
 
 <table>
 <tr>
@@ -59,6 +60,16 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 </td>
 </tr>
+<tr>
+<td width="50%">
+
+**Zoom Levels — Field Notes**
+
+![Black holes explained at three zoom levels in Field Notes style](examples/black-holes-zoom-field-notes/preview.png)
+
+</td>
+<td width="50%"></td>
+</tr>
 </table>
 
 Same skill, same rigor, wildly different vibes. That's the point.
@@ -75,6 +86,7 @@ Picked automatically, based on what your content actually is — not habit:
 | Two things, contrasted directly | ⚖️ **Comparison** |
 | Events in order, across time | 📅 **Timeline** |
 | Things built on top of each other | 🧱 **Layered / Stack** |
+| A topic worth explaining at multiple depths | 🔭 **Zoom Levels** |
 
 ## The brands
 

@@ -119,3 +119,20 @@ Vary marker size or add a highlight ring on the single most important milestone 
 ```
 
 Label each band with both its name and a one-line "what lives here" so the stack reads top-to-bottom as a story, not just a labeled diagram. Use a consistent left-edge accent stripe per band (rotating through the brand's accents bottom-to-top) rather than fully coloring each band — full-color bands stacked tend to look like a flag rather than a diagram.
+
+---
+
+## Zoom Levels
+
+**When**: the topic has real depth and different readers want different amounts of it — a "give me the 10-second version" crowd and a "no really, explain the mechanism" crowd both showing up for the same topic. Unlike the other templates, this one isn't about the shape of the content's parts — it's about depth of explanation of the *same* idea, told three times at increasing resolution.
+
+**Skeleton**: three stacked (or tabbed) sections, each explaining the whole topic at a different zoom level, each visually "denser" than the last — more words, more specifics, maybe a small diagram only at the deepest level.
+
+```
+[ 🔭 THE 10-SECOND VERSION — one sentence, plain language           ]
+[ 🔬 THE 1-MINUTE VERSION  — a short paragraph, the actual mechanism ]
+[ 🧪 THE DEEP-DIVE          — the real detail: numbers, caveats,     ]
+[                             the thing experts would argue about    ]
+```
+
+Each level should stand alone — a reader who stops after level 1 got a complete (if shallow) answer, not a teaser. Visually distinguish the levels by more than just position: increasing card size/padding, a progressively "busier" background texture, or an increasing accent-color intensity all signal "more depth" without needing the reader to read a label. Cap at three levels — a fourth makes the reader wonder why they didn't just read a Wikipedia article. This template pairs unusually well with topics that have real scientific or technical depth (physics, medicine, cryptography) where the 10-second version is necessarily a simplification worth being honest about.

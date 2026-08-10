@@ -1,0 +1,186 @@
+<meta charset="utf-8">
+<title>Black Holes, at Three Zoom Levels</title>
+<style>
+  :root {
+    --paper: #f6f2e9;
+    --paper-line: #dcd3bf;
+    --ink: #1e2a38;
+    --ink-soft: #4a5b6b;
+    --accent-1: #0f8b8d;
+    --accent-2: #e4572e;
+    --accent-3: #e8a33d;
+    --accent-4: #6a4c93;
+    --card-bg: #fffdf8;
+    --shadow: rgba(30, 42, 56, 0.16);
+  }
+  :root[data-theme="dark"] {
+    --paper: #1b2027; --paper-line: #323a45;
+    --ink: #eee7d8; --ink-soft: #a9b4c0;
+    --accent-1: #4fd1ce; --accent-2: #ff8360;
+    --accent-3: #f2bd6c; --accent-4: #b79ceb;
+    --card-bg: #232a33; --shadow: rgba(0,0,0,0.45);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #1b2027; --paper-line: #323a45;
+      --ink: #eee7d8; --ink-soft: #a9b4c0;
+      --accent-1: #4fd1ce; --accent-2: #ff8360;
+      --accent-3: #f2bd6c; --accent-4: #b79ceb;
+      --card-bg: #232a33; --shadow: rgba(0,0,0,0.45);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background:
+      repeating-linear-gradient(0deg, transparent, transparent 34px, var(--paper-line) 35px),
+      var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 780px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 4.5vw, 3rem);
+    text-align: center;
+    margin: 6px 0 4px;
+    text-wrap: balance;
+  }
+
+  .underline-svg { display: block; margin: -4px auto 30px; width: min(480px, 78%); }
+
+  .zoom-stack { display: flex; flex-direction: column; gap: 22px; }
+
+  .zoom-card {
+    background: var(--card-bg);
+    border-radius: 16px 18px 15px 17px / 18px 14px 19px 15px;
+    box-shadow: 4px 6px 0 var(--shadow);
+    position: relative;
+  }
+
+  .zoom-card .tag {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* Level 1 — smallest, plainest */
+  .z1 {
+    border: 2.5px solid var(--accent-1);
+    padding: 16px 22px;
+    transform: rotate(-0.4deg);
+  }
+  .z1 .tag { font-size: 0.66rem; color: var(--accent-1); margin-bottom: 6px; }
+  .z1 p { margin: 0; font-size: 1.25rem; line-height: 1.4; }
+
+  /* Level 2 — medium */
+  .z2 {
+    border: 2.5px solid var(--accent-2);
+    padding: 20px 26px 22px;
+    transform: rotate(0.5deg);
+  }
+  .z2 .tag { font-size: 0.7rem; color: var(--accent-2); margin-bottom: 8px; }
+  .z2 p { margin: 0 0 10px; font-size: 1.08rem; line-height: 1.5; }
+  .z2 p:last-child { margin-bottom: 0; }
+
+  /* Level 3 — largest, densest, has a small diagram */
+  .z3 {
+    border: 3px solid var(--accent-4);
+    padding: 24px 28px 26px;
+    transform: rotate(-0.3deg);
+    display: grid;
+    grid-template-columns: 1fr 150px;
+    gap: 20px;
+    align-items: start;
+  }
+  .z3 .tag { font-size: 0.74rem; color: var(--accent-4); margin-bottom: 8px; }
+  .z3 .text p { margin: 0 0 10px; font-size: 1.02rem; line-height: 1.52; color: var(--ink); }
+  .z3 .text p:last-child { margin-bottom: 0; }
+  .z3 .text b { color: var(--accent-4); }
+  .z3 .diagram { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .z3 .diagram svg { width: 130px; height: 130px; }
+  .z3 .diagram .cap {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.64rem;
+    color: var(--ink-soft);
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  @media (max-width: 640px) {
+    .z3 { grid-template-columns: 1fr; }
+    .z3 .diagram { flex-direction: row; justify-content: center; }
+  }
+
+  .footer-banner {
+    margin-top: 28px;
+    text-align: center;
+    border: 2.5px solid var(--accent-3);
+    border-radius: 40px;
+    padding: 14px 24px;
+    background: var(--card-bg);
+    box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.05rem;
+  }
+  .footer-banner .accent { color: var(--accent-3); font-weight: 700; }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>Black Holes, at Three Zoom Levels</h1>
+  <svg class="underline-svg" viewBox="0 0 480 20" preserveAspectRatio="none">
+    <path d="M4 12 C 120 3, 270 18, 476 8" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <div class="zoom-stack">
+    <div class="zoom-card z1">
+      <div class="tag">🔭 the 10-second version</div>
+      <p>A black hole is a place where gravity is so strong that nothing — not even light — can escape.</p>
+    </div>
+
+    <div class="zoom-card z2">
+      <div class="tag">🔬 the 1-minute version</div>
+      <p>When a massive star runs out of fuel, it can collapse under its own gravity into an incredibly small, dense point. Past a certain distance from that point — the <b style="color:var(--accent-2)">event horizon</b> — the escape velocity needed to get away exceeds the speed of light. Since nothing travels faster than light, nothing that crosses that line ever comes back out. Not spaceships, not radio signals, not light itself.</p>
+      <p>That's why it's "black" — it doesn't emit or reflect anything. We only know it's there from how it bends light and pulls on nearby stars and gas.</p>
+    </div>
+
+    <div class="zoom-card z3">
+      <div class="text">
+        <div class="tag">🧪 the deep-dive</div>
+        <p>The event horizon's radius (the <b>Schwarzschild radius</b>) depends only on mass: <b>r = 2GM/c²</b>. For the Sun, that works out to about 3 km — meaning if you crushed the Sun down to the size of a small town, it would become a black hole.</p>
+        <p>Inside, all that mass is thought to collapse to a <b>singularity</b> — a point of infinite density where our current physics stops making reliable predictions. Anything falling in gets stretched by the extreme tidal difference between the near and far side, a process physicists genuinely call <b>spaghettification</b>.</p>
+        <p>Black holes aren't perfectly black forever, either — Stephen Hawking showed they slowly emit <b>Hawking radiation</b> and, in principle, evaporate over timescales vastly longer than the current age of the universe. Whether the information that fell in is truly lost or preserved is the <b>information paradox</b>, still unresolved and still argued about. In 2019, the Event Horizon Telescope captured the first actual image of one, confirming the shadow-and-ring shape theory had predicted for decades.</p>
+      </div>
+      <div class="diagram">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="46" fill="none" stroke="var(--accent-3)" stroke-width="2" stroke-dasharray="2 5"/>
+          <circle cx="50" cy="50" r="30" fill="none" stroke="var(--accent-2)" stroke-width="3"/>
+          <circle cx="50" cy="50" r="5" fill="var(--ink)"/>
+        </svg>
+        <div class="cap">dashed = photon ring · orange = event horizon · dot = singularity</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Each version is a complete answer on its own — <span class="accent">go as deep as you actually want</span>.
+  </div>
+</div>
