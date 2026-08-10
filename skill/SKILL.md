@@ -49,7 +49,7 @@ If a topic could fit two templates, pick the one that makes the *reader's* job e
 - **Sunset Deck** — warm dusk-to-orange gradient background, cream ink, gold accent. Aspirational, cinematic.
 - **Night Flight** — dusk-blue-to-mauve gradient with a film-grain texture, crimson/gold/teal accents. Retro travel-poster feel.
 
-If offering a menu via a UI limited to a small number of options (e.g. AskUserQuestion's 4-option cap), show 3-4 well-differentiated choices and mention in the question text that other named brands are also available — don't silently drop brands from consideration just because they don't fit in the widget.
+If offering a menu via a UI limited to a small number of options (e.g. AskUserQuestion's 4-option cap), show 3 well-differentiated choices and use the 4th slot for **"Browse the full catalog"** — pointing to the live gallery at https://amrsingh29.github.io/handwritten-note-skill/?tab=brands, where every brand renders the same test note side by side. Tell the user they can look through it and reply with any brand's name directly, even ones that didn't fit in the visible options — the widget's 4-slot cap is a UI limitation, not a real limitation on which of the 14 brands they can pick.
 
 Read `references/brands.md` for the exact color tokens, font stacks, and any usage constraints (e.g. BMC Helix's "orange is accent-only, never dominant" rule, or Blueprint's "don't use the handwritten font" exception) for whichever brand is chosen.
 
@@ -82,3 +82,21 @@ Don't create the folder speculatively before the note is finished — only once 
 ## Adding a new brand or layout later
 
 Both reference files are meant to grow. If the user asks for a new brand ("make one that looks like X") or a new layout, add it to the relevant reference file the same way the existing entries are structured — named tokens/skeleton plus a one-line "when to use this" note — rather than improvising it inline each time. That keeps future notes in that brand/layout consistent with this one.
+
+### Runbook: adding a new brand
+
+This is what actually happened when Night Flight was added from a user-supplied reference image — follow the same sequence:
+
+1. **Extract the palette from the source.** If the user gives a reference image, pull the *actual* gradient stops / hex values / mood from it rather than approximating from memory — name what makes it visually distinct (a gradient? a texture? a single-accent rule? a non-handwritten font?) before writing any tokens.
+2. **Prototype with one real topic first.** Build a single test note in the new brand (any layout, doesn't need to be Flow) and show it to the user before treating the brand as final — colors and effects (glow, grain, gradients) often need one round of tuning once they're rendered, not just described.
+3. **Once approved, add the full entry to `references/brands.md`**: the token block (matching the existing format), plus prose explaining what mechanically makes the brand work (e.g. Night Flight's fixed-position gradient + `feTurbulence` grain overlay, Neon Arcade's glow-instead-of-shadow) — the next person building in this brand needs the *mechanism*, not just the hex codes.
+4. **Add the one-line entry to `SKILL.md`'s Step 3 brand menu** (this file), keeping the same "palette description — mood" format as the others.
+5. **Save the prototype note** into `examples/layout-catalog/<topic>-<brand-slug>/` per Step 6 above.
+6. **Add the brand to the palette catalog** so it's directly comparable against every other brand: open `examples/palette-catalog-lightning/generate.py`, add a new `dict(...)` entry to `BRANDS` following an existing entry's structure (set `background="gradient"` and a `gradient=` string if it needs one, `grain=True` if it needs the texture, `single_theme=True` if it's not meant to have a light/dark toggle), then run `python3 generate.py` from inside that directory — it writes directly to `<slug>/note.html` in place. Take a fresh screenshot of that file for `<slug>/preview.png`.
+7. **Wire the new brand into every place that lists brands**, since none of these update themselves:
+   - `examples/palette-catalog-lightning/index.html` — add a `{ slug, name, swatches }` entry to its `brands` array, and bump the brand count in its `<h1>`.
+   - the repo-root `index.html` (the GitHub Pages homepage) — same array, in the `brands` dataset, plus the `(N)` counts in both the tab label and the `<h1>` text, plus the `<meta description>` count.
+   - `README.md` — the brand list under "The brands", the "N brands now" sentence, and the repo-layout diagram's brand count if it mentions one.
+8. **Commit and push everything together** in one commit (the brand doc, the SKILL.md menu entry, the new example, the regenerated palette-catalog file, and every count update) so the repo is never in a state where the brand is documented but not actually visible anywhere. GitHub Pages rebuilds automatically on push — no separate deploy step.
+
+The live catalog at https://amrsingh29.github.io/handwritten-note-skill/?tab=brands is the fastest way for anyone (including a future you) to sanity-check that a brand addition actually landed everywhere it needed to.

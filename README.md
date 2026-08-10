@@ -2,6 +2,8 @@
 
 **Turn any concept into something you'd actually want to read.**
 
+**[🔗 Browse the live gallery →](https://amrsingh29.github.io/handwritten-note-skill/)** — all 10 layouts and 14 color themes, clickable, no cloning required.
+
 You know the topic. You could write three paragraphs about it. Nobody's going to read three paragraphs. This is a [Claude Code](https://claude.com/claude-code) skill that instead turns your topic into a single, self-contained page that looks like a smart friend sketched it out on a napkin — except the napkin has a real design system, works in dark mode, and doesn't run out of room halfway through.
 
 Ask for an explainer. Get back something you'd screenshot and send to a group chat.
@@ -148,7 +150,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 Same skill, same rigor, wildly different vibes. That's the point.
 
-**Want to see all 14 brands side by side?** Check out the [palette catalog](examples/palette-catalog-lightning/index.html) — the same "How Lightning Works" note, rendered once per brand, in a browsable gallery with a live preview pane.
+**Want to see all 14 brands side by side?** Check out the [live palette catalog](https://amrsingh29.github.io/handwritten-note-skill/?tab=brands) — the same "How Lightning Works" note, rendered once per brand, in a browsable gallery with a live preview pane. (The same page also lives at [examples/palette-catalog-lightning/index.html](examples/palette-catalog-lightning/index.html) if you're browsing a local clone.)
 
 ## The layouts
 
