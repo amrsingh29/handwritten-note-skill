@@ -71,12 +71,39 @@
   }
   header .links a:hover { border-color: var(--accent); color: var(--accent); }
 
+  .tabs {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 4px;
+    margin: 20px auto 0;
+    max-width: 340px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+  .tab {
+    flex: 1;
+    text-align: center;
+    padding: 8px 10px;
+    border-radius: 9px;
+    border: none;
+    background: transparent;
+    color: var(--ink-soft);
+    font-size: 0.86rem;
+    font-weight: 600;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .tab.active { background: var(--accent); color: #fff; }
+
   .layout {
     display: grid;
     grid-template-columns: 300px 1fr;
     gap: 0;
-    height: calc(100vh - 190px);
-    min-height: 520px;
+    height: calc(100vh - 250px);
+    min-height: 480px;
+    margin-top: 20px;
     border-top: 1px solid var(--border);
   }
   .grid {
@@ -111,6 +138,8 @@
   .thumb .meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
   .thumb .name { font-weight: 600; font-size: 0.88rem; }
   .thumb .sub { font-size: 0.74rem; color: var(--ink-soft); }
+  .thumb .swatches { display: flex; gap: 3px; margin-top: 2px; }
+  .thumb .swatch { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
   .viewer { position: relative; background: var(--panel); }
   .viewer iframe { width: 100%; height: 100%; border: 0; display: block; }
   .viewer .open-link {
@@ -134,11 +163,14 @@
 <body>
   <header>
     <div class="eyebrow">handwritten note — a claude code skill</div>
-    <h1>10 Ways to Explain Anything</h1>
-    <p>Same idea every time: turn a topic into a single page that looks hand-drawn but reads like it was actually designed. The layout changes based on the shape of the content — this gallery shows one real, tested example of each.</p>
+    <h1>10 Layouts. 13 Brands. One Skill.</h1>
+    <p>Same idea every time: turn a topic into a single page that looks hand-drawn but reads like it was actually designed. The layout changes based on the shape of the content, and the color brand is picked separately, every time. Browse both below.</p>
     <div class="links">
       <a href="https://github.com/amrsingh29/handwritten-note-skill">View on GitHub ↗</a>
-      <a href="examples/palette-catalog-lightning/index.html">Compare all 13 color brands ↗</a>
+    </div>
+    <div class="tabs">
+      <button class="tab active" id="tabLayouts">By Layout (10)</button>
+      <button class="tab" id="tabBrands">By Brand (13)</button>
     </div>
   </header>
 
@@ -153,45 +185,92 @@
   <footer>Clone it, symlink <code>skill/</code> into <code>~/.claude/skills/</code>, and ask Claude to explain something. See the <a href="README.md">README</a> for setup.</footer>
 
 <script>
-  const templates = [
-    { slug: "vector-db-bmc-helix", layout: "Flow / Steps", topic: "How a Vector Database Finds Things", brand: "BMC Helix" },
-    { slug: "solar-cycle-midnight-notebook", layout: "Cycle / Loop", topic: "The Sun's 11-Year Cycle", brand: "Midnight Notebook" },
-    { slug: "ai-agent-building-blocks-chalkboard", layout: "Hub & Spoke", topic: "The Building Blocks of an AI Agent", brand: "Chalkboard" },
-    { slug: "fission-vs-fusion-blueprint", layout: "Comparison", topic: "Nuclear Fission vs. Fusion", brand: "Blueprint" },
-    { slug: "gravitational-waves-timeline-pastel-lab", layout: "Timeline", topic: "Detecting Gravitational Waves", brand: "Pastel Lab" },
-    { slug: "osi-model-sunset-deck", layout: "Layered / Stack", topic: "The OSI Model, Layer by Layer", brand: "Sunset Deck" },
-    { slug: "black-holes-zoom-field-notes", layout: "Zoom Levels", topic: "Black Holes, at Three Zoom Levels", brand: "Field Notes" },
-    { slug: "bcg-matrix-ink-marker", layout: "Matrix / Quadrant", topic: "The BCG Growth-Share Matrix", brand: "Ink & Marker" },
-    { slug: "agent-memory-decision-tree-bmc-helix", layout: "Decision Tree", topic: "Which Memory Should Your AI Agent Use?", brand: "BMC Helix" },
-    { slug: "ai-agent-jargon-field-guide-neon-arcade", layout: "Glossary / Field Guide", topic: "A Field Guide to AI Agent Jargon", brand: "Neon Arcade" },
-  ];
+  const layoutSets = {
+    layouts: {
+      basePath: "examples/",
+      items: [
+        { slug: "vector-db-bmc-helix", name: "Flow / Steps", sub: "How a Vector Database Finds Things", sub2: "BMC Helix" },
+        { slug: "solar-cycle-midnight-notebook", name: "Cycle / Loop", sub: "The Sun's 11-Year Cycle", sub2: "Midnight Notebook" },
+        { slug: "ai-agent-building-blocks-chalkboard", name: "Hub & Spoke", sub: "The Building Blocks of an AI Agent", sub2: "Chalkboard" },
+        { slug: "fission-vs-fusion-blueprint", name: "Comparison", sub: "Nuclear Fission vs. Fusion", sub2: "Blueprint" },
+        { slug: "gravitational-waves-timeline-pastel-lab", name: "Timeline", sub: "Detecting Gravitational Waves", sub2: "Pastel Lab" },
+        { slug: "osi-model-sunset-deck", name: "Layered / Stack", sub: "The OSI Model, Layer by Layer", sub2: "Sunset Deck" },
+        { slug: "black-holes-zoom-field-notes", name: "Zoom Levels", sub: "Black Holes, at Three Zoom Levels", sub2: "Field Notes" },
+        { slug: "bcg-matrix-ink-marker", name: "Matrix / Quadrant", sub: "The BCG Growth-Share Matrix", sub2: "Ink & Marker" },
+        { slug: "agent-memory-decision-tree-bmc-helix", name: "Decision Tree", sub: "Which Memory Should Your AI Agent Use?", sub2: "BMC Helix" },
+        { slug: "ai-agent-jargon-field-guide-neon-arcade", name: "Glossary / Field Guide", sub: "A Field Guide to AI Agent Jargon", sub2: "Neon Arcade" },
+      ],
+    },
+    brands: {
+      basePath: "examples/palette-catalog-lightning/",
+      sub: "How Lightning Works",
+      items: [
+        { slug: "field-notes", name: "Field Notes", swatches: ["#0f8b8d","#e4572e","#e8a33d","#6a4c93"] },
+        { slug: "chalkboard", name: "Chalkboard", swatches: ["#f6e05e","#f6a5c0","#7ec8e3","#c7f0d8"] },
+        { slug: "sticky-wall", name: "Sticky Wall", swatches: ["#fff275","#ff8fab","#8ecae6","#b9fbc0"] },
+        { slug: "ink-and-marker", name: "Ink & Marker", swatches: ["#ff4500","#ff4500","#ff4500","#ff4500"] },
+        { slug: "midnight-notebook", name: "Midnight Notebook", swatches: ["#e8b04b","#5fd4d6","#c98bd6","#7ea8e0"] },
+        { slug: "bmc-helix", name: "BMC Helix", swatches: ["#4040d9","#ff5a4d","#914796","#264580"] },
+        { slug: "terracotta-studio", name: "Terracotta Studio", swatches: ["#c1502e","#7c8c5a","#d1a039","#9c6b4f"] },
+        { slug: "botanical-press", name: "Botanical Press", swatches: ["#c98a93","#a98b3e","#4f6b52","#8a9a6b"] },
+        { slug: "neon-arcade", name: "Neon Arcade", swatches: ["#ff2fd0","#2ff0ff","#d6ff2f","#7a5cff"] },
+        { slug: "newsprint", name: "Newsprint", swatches: ["#b0281f","#b0281f","#b0281f","#b0281f"] },
+        { slug: "pastel-lab", name: "Pastel Lab", swatches: ["#b8a4e3","#9fd8c4","#a8cbef","#f3b8a0"] },
+        { slug: "blueprint", name: "Blueprint", swatches: ["#7fd4e8","#ffffff","#bfe3ef","#4fa8c9"] },
+        { slug: "sunset-deck", name: "Sunset Deck", swatches: ["#ff8a5b","#e2b33b","#c15b7c","#8a6bb0"] },
+      ],
+    },
+  };
 
   const grid = document.getElementById("grid");
   const frame = document.getElementById("frame");
   const openLink = document.getElementById("openLink");
+  const tabLayouts = document.getElementById("tabLayouts");
+  const tabBrands = document.getElementById("tabBrands");
 
-  function select(slug, el) {
-    const path = "examples/" + slug + "/note.html";
+  function loadNote(path) {
     frame.src = path;
     openLink.href = path;
-    document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
-    el.classList.add("active");
   }
 
-  templates.forEach((t, i) => {
-    const btn = document.createElement("button");
-    btn.className = "thumb" + (i === 0 ? " active" : "");
-    btn.innerHTML = `
-      <img src="examples/${t.slug}/preview.png" alt="${t.topic} preview" loading="lazy">
-      <div class="meta">
-        <div class="name">${t.layout}</div>
-        <div class="sub">${t.topic}</div>
-        <div class="sub">${t.brand}</div>
-      </div>
-    `;
-    btn.addEventListener("click", () => select(t.slug, btn));
-    grid.appendChild(btn);
+  function renderSet(key) {
+    const set = layoutSets[key];
+    grid.innerHTML = "";
+    set.items.forEach((item, i) => {
+      const path = set.basePath + item.slug + "/note.html";
+      const preview = set.basePath + item.slug + "/preview.png";
+      const btn = document.createElement("button");
+      btn.className = "thumb" + (i === 0 ? " active" : "");
+      const metaHtml = item.swatches
+        ? `<div class="name">${item.name}</div><div class="sub">${set.sub}</div><div class="swatches">${item.swatches.map(c => `<span class="swatch" style="background:${c}"></span>`).join("")}</div>`
+        : `<div class="name">${item.name}</div><div class="sub">${item.sub}</div><div class="sub">${item.sub2}</div>`;
+      btn.innerHTML = `<img src="${preview}" alt="${item.name} preview" loading="lazy"><div class="meta">${metaHtml}</div>`;
+      btn.addEventListener("click", () => {
+        loadNote(path);
+        document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+        btn.classList.add("active");
+      });
+      grid.appendChild(btn);
+      if (i === 0) loadNote(path);
+    });
+  }
+
+  tabLayouts.addEventListener("click", () => {
+    tabLayouts.classList.add("active");
+    tabBrands.classList.remove("active");
+    renderSet("layouts");
   });
+  tabBrands.addEventListener("click", () => {
+    tabBrands.classList.add("active");
+    tabLayouts.classList.remove("active");
+    renderSet("brands");
+  });
+
+  if (new URLSearchParams(location.search).get("tab") === "brands") {
+    tabBrands.click();
+  } else {
+    renderSet("layouts");
+  }
 </script>
 </body>
 </html>
