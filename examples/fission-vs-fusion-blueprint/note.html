@@ -1,0 +1,164 @@
+<meta charset="utf-8">
+<title>Nuclear Fission vs. Fusion</title>
+<style>
+  :root {
+    --paper: #163a63;
+    --paper-line: #1f4a7a;
+    --ink: #eaf3fb;
+    --ink-soft: #9fc2df;
+    --accent-1: #7fd4e8;
+    --accent-2: #ffffff;
+    --accent-3: #bfe3ef;
+    --accent-4: #4fa8c9;
+    --card-bg: #123054;
+    --shadow: rgba(0, 0, 0, 0.4);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: ui-monospace, "SF Mono", Menlo, "Segoe UI", sans-serif;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 920px; margin: 0 auto; }
+
+  .label {
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.66rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  h1 {
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    text-align: center;
+    margin: 6px 0 4px;
+    text-wrap: balance;
+    font-weight: 700;
+  }
+
+  .rule { width: 90px; height: 2px; background: var(--accent-1); margin: 10px auto 26px; }
+
+  .intro {
+    max-width: 640px;
+    margin: 0 auto 34px;
+    text-align: center;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    line-height: 1.55;
+  }
+  .intro b { color: var(--accent-1); }
+
+  /* --- Comparison --- */
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1.5px solid var(--paper-line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .col-head {
+    padding: 16px 20px;
+    text-align: center;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border-bottom: 1.5px solid var(--paper-line);
+  }
+  .col-head.fission { color: var(--accent-1); border-right: 1px solid var(--paper-line); }
+  .col-head.fusion { color: var(--accent-2); }
+
+  .row { display: contents; }
+  .cell {
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--paper-line);
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+  .cell.fission { border-right: 1px solid var(--paper-line); color: var(--ink); }
+  .cell.fusion { color: var(--ink); }
+  .cell .aspect {
+    display: block;
+    font-size: 0.64rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  .row:last-of-type .cell { border-bottom: none; }
+
+  .verdict {
+    grid-column: 1 / 3;
+    padding: 18px 24px;
+    text-align: center;
+    background: rgba(127, 212, 232, 0.08);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  .verdict b { color: var(--accent-1); }
+  .verdict .fusion-word { color: var(--accent-2); font-weight: 700; }
+
+  @media (max-width: 680px) {
+    .compare { grid-template-columns: 1fr; }
+    .col-head.fission, .cell.fission { border-right: none; }
+    .verdict { grid-column: 1; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>Nuclear Fission vs. Fusion</h1>
+  <div class="rule"></div>
+
+  <p class="intro">
+    Both release energy by breaking the strongest force in nature — they just do it in
+    <b>opposite directions</b>. One splits atoms apart. The other forces them together.
+  </p>
+
+  <div class="compare">
+    <div class="col-head fission">⚛ FISSION</div>
+    <div class="col-head fusion">☀ FUSION</div>
+
+    <div class="row">
+      <div class="cell fission"><span class="aspect">how it works</span>A heavy atom (like uranium) is split into two lighter atoms by a neutron strike, releasing energy and more neutrons.</div>
+      <div class="cell fusion"><span class="aspect">how it works</span>Two light atoms (hydrogen isotopes) are forced together under extreme pressure, fusing into one heavier atom.</div>
+    </div>
+
+    <div class="row">
+      <div class="cell fission"><span class="aspect">fuel</span>Uranium-235 or plutonium-239 — mined, enriched, and finite.</div>
+      <div class="cell fusion"><span class="aspect">fuel</span>Deuterium and tritium — abundant in seawater, effectively limitless.</div>
+    </div>
+
+    <div class="row">
+      <div class="cell fission"><span class="aspect">conditions needed</span>A critical mass of fuel and controlled neutron moderation — achievable at everyday temperatures.</div>
+      <div class="cell fusion"><span class="aspect">conditions needed</span>Roughly 100 million °C, hotter than the Sun's core — nothing solid can contain it.</div>
+    </div>
+
+    <div class="row">
+      <div class="cell fission"><span class="aspect">byproduct</span>Radioactive waste that stays dangerous for thousands of years.</div>
+      <div class="cell fusion"><span class="aspect">byproduct</span>Helium — inert, harmless, and not radioactive.</div>
+    </div>
+
+    <div class="row">
+      <div class="cell fission"><span class="aspect">energy per kg</span>Enormous — roughly a million times more than burning coal.</div>
+      <div class="cell fusion"><span class="aspect">energy per kg</span>Roughly four times more than fission, for the same mass of fuel.</div>
+    </div>
+
+    <div class="row">
+      <div class="cell fission"><span class="aspect">status today</span>Running now — powers ~9% of the world's electricity.</div>
+      <div class="cell fusion"><span class="aspect">status today</span>Still experimental — no reactor has produced net commercial power yet.</div>
+    </div>
+
+    <div class="verdict">
+      <b>Fission</b> already works, at the cost of long-lived waste. <span class="fusion-word">Fusion</span> could be nearly limitless and clean — if we can learn to hold a star in a bottle.
+    </div>
+  </div>
+</div>

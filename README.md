@@ -28,6 +28,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [Black Holes, at Three Zoom Levels](examples/black-holes-zoom-field-notes/note.html) | Zoom Levels | Field Notes |
 | [The BCG Growth-Share Matrix](examples/bcg-matrix-ink-marker/note.html) | Matrix / Quadrant | Ink & Marker |
 | [Which Memory Should Your AI Agent Use?](examples/agent-memory-decision-tree-bmc-helix/note.html) | Decision Tree | BMC Helix |
+| [Nuclear Fission vs. Fusion](examples/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
 
 <table>
 <tr>
@@ -86,7 +87,13 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 ![Which memory should your AI agent use, a decision tree in BMC Helix style](examples/agent-memory-decision-tree-bmc-helix/preview.png)
 
 </td>
-<td width="50%"></td>
+<td width="50%">
+
+**Comparison — Blueprint**
+
+![Nuclear fission versus fusion comparison in Blueprint style](examples/fission-vs-fusion-blueprint/preview.png)
+
+</td>
 </tr>
 </table>
 
