@@ -71,12 +71,12 @@ Reread the page as if you were the intended reader, not the author: does the the
 
 Every note this skill produces becomes a reference example, so save it into the repo rather than leaving it only as a published Artifact:
 
-1. Make a new folder at `examples/<topic-slug>-<brand-slug>/` in the `handwritten-note-skill` repo (e.g. `examples/ai-agent-components-field-notes/`), using kebab-case derived from the topic and chosen brand.
+1. Make a new folder at `examples/layout-catalog/<topic-slug>-<brand-slug>/` in the `handwritten-note-skill` repo (e.g. `examples/layout-catalog/ai-agent-components-field-notes/`), using kebab-case derived from the topic and chosen brand. All layout-template examples live together under `examples/layout-catalog/` — this keeps the top-level `examples/` directory organized as one folder per *purpose* (the layout catalog, the palette catalog, and any future catalogs) rather than dozens of loose topic folders sitting side by side.
 2. Copy the final HTML file into that folder as `note.html`.
 3. Capture a PNG of the rendered result: open the HTML (or the published Artifact URL) in the Browser pane and take a screenshot, saving it into the same folder as `preview.png`. This gives the example a thumbnail that's readable without opening the HTML.
 4. If asked to sync to GitHub, commit both files together with a message naming the topic and brand (e.g. `feat: add AI agent components example (Field Notes)`), and push.
 
-Don't create the folder speculatively before the note is finished — only once Step 5's check has passed and the user has seen the result, so examples/ only accumulates notes that actually worked.
+Don't create the folder speculatively before the note is finished — only once Step 5's check has passed and the user has seen the result, so `examples/layout-catalog/` only accumulates notes that actually worked.
 
 ## Adding a new brand or layout later
 

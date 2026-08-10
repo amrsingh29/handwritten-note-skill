@@ -23,17 +23,17 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 | Topic | Layout | Brand |
 |---|---|---|
-| [How a Vector Database Finds Things](examples/vector-db-field-notes/note.html) | Flow / Steps | Field Notes |
-| [How a Vector Database Finds Things](examples/vector-db-bmc-helix/note.html) | Flow / Steps | BMC Helix |
-| [The Building Blocks of an AI Agent](examples/ai-agent-building-blocks-chalkboard/note.html) | Hub & Spoke | Chalkboard |
-| [The Sun's 11-Year Cycle](examples/solar-cycle-midnight-notebook/note.html) | Cycle / Loop | Midnight Notebook |
-| [Black Holes, at Three Zoom Levels](examples/black-holes-zoom-field-notes/note.html) | Zoom Levels | Field Notes |
-| [The BCG Growth-Share Matrix](examples/bcg-matrix-ink-marker/note.html) | Matrix / Quadrant | Ink & Marker |
-| [Which Memory Should Your AI Agent Use?](examples/agent-memory-decision-tree-bmc-helix/note.html) | Decision Tree | BMC Helix |
-| [Nuclear Fission vs. Fusion](examples/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
-| [Detecting Gravitational Waves](examples/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
-| [The OSI Model, Layer by Layer](examples/osi-model-sunset-deck/note.html) | Layered / Stack | Sunset Deck |
-| [A Field Guide to AI Agent Jargon](examples/ai-agent-jargon-field-guide-neon-arcade/note.html) | Glossary / Field Guide | Neon Arcade |
+| [How a Vector Database Finds Things](examples/layout-catalog/vector-db-field-notes/note.html) | Flow / Steps | Field Notes |
+| [How a Vector Database Finds Things](examples/layout-catalog/vector-db-bmc-helix/note.html) | Flow / Steps | BMC Helix |
+| [The Building Blocks of an AI Agent](examples/layout-catalog/ai-agent-building-blocks-chalkboard/note.html) | Hub & Spoke | Chalkboard |
+| [The Sun's 11-Year Cycle](examples/layout-catalog/solar-cycle-midnight-notebook/note.html) | Cycle / Loop | Midnight Notebook |
+| [Black Holes, at Three Zoom Levels](examples/layout-catalog/black-holes-zoom-field-notes/note.html) | Zoom Levels | Field Notes |
+| [The BCG Growth-Share Matrix](examples/layout-catalog/bcg-matrix-ink-marker/note.html) | Matrix / Quadrant | Ink & Marker |
+| [Which Memory Should Your AI Agent Use?](examples/layout-catalog/agent-memory-decision-tree-bmc-helix/note.html) | Decision Tree | BMC Helix |
+| [Nuclear Fission vs. Fusion](examples/layout-catalog/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
+| [Detecting Gravitational Waves](examples/layout-catalog/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
+| [The OSI Model, Layer by Layer](examples/layout-catalog/osi-model-sunset-deck/note.html) | Layered / Stack | Sunset Deck |
+| [A Field Guide to AI Agent Jargon](examples/layout-catalog/ai-agent-jargon-field-guide-neon-arcade/note.html) | Glossary / Field Guide | Neon Arcade |
 
 <table>
 <tr>
@@ -41,14 +41,14 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 **Flow — Field Notes**
 
-![Vector database explainer in Field Notes style](examples/vector-db-field-notes/preview.png)
+![Vector database explainer in Field Notes style](examples/layout-catalog/vector-db-field-notes/preview.png)
 
 </td>
 <td width="50%">
 
 **Flow — BMC Helix**
 
-![Vector database explainer in BMC Helix style](examples/vector-db-bmc-helix/preview.png)
+![Vector database explainer in BMC Helix style](examples/layout-catalog/vector-db-bmc-helix/preview.png)
 
 </td>
 </tr>
@@ -57,14 +57,14 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 **Hub & Spoke — Chalkboard**
 
-![AI agent building blocks in Chalkboard style](examples/ai-agent-building-blocks-chalkboard/preview.png)
+![AI agent building blocks in Chalkboard style](examples/layout-catalog/ai-agent-building-blocks-chalkboard/preview.png)
 
 </td>
 <td width="50%">
 
 **Cycle — Midnight Notebook**
 
-![The Sun's 11-year cycle in Midnight Notebook style](examples/solar-cycle-midnight-notebook/preview.png)
+![The Sun's 11-year cycle in Midnight Notebook style](examples/layout-catalog/solar-cycle-midnight-notebook/preview.png)
 
 </td>
 </tr>
@@ -73,14 +73,14 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 **Zoom Levels — Field Notes**
 
-![Black holes explained at three zoom levels in Field Notes style](examples/black-holes-zoom-field-notes/preview.png)
+![Black holes explained at three zoom levels in Field Notes style](examples/layout-catalog/black-holes-zoom-field-notes/preview.png)
 
 </td>
 <td width="50%">
 
 **Matrix / Quadrant — Ink & Marker**
 
-![The BCG growth-share matrix in Ink and Marker style](examples/bcg-matrix-ink-marker/preview.png)
+![The BCG growth-share matrix in Ink and Marker style](examples/layout-catalog/bcg-matrix-ink-marker/preview.png)
 
 </td>
 </tr>
@@ -89,14 +89,14 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 **Decision Tree — BMC Helix**
 
-![Which memory should your AI agent use, a decision tree in BMC Helix style](examples/agent-memory-decision-tree-bmc-helix/preview.png)
+![Which memory should your AI agent use, a decision tree in BMC Helix style](examples/layout-catalog/agent-memory-decision-tree-bmc-helix/preview.png)
 
 </td>
 <td width="50%">
 
 **Comparison — Blueprint**
 
-![Nuclear fission versus fusion comparison in Blueprint style](examples/fission-vs-fusion-blueprint/preview.png)
+![Nuclear fission versus fusion comparison in Blueprint style](examples/layout-catalog/fission-vs-fusion-blueprint/preview.png)
 
 </td>
 </tr>
@@ -105,14 +105,14 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 **Timeline — Pastel Lab**
 
-![Detecting gravitational waves timeline in Pastel Lab style](examples/gravitational-waves-timeline-pastel-lab/preview.png)
+![Detecting gravitational waves timeline in Pastel Lab style](examples/layout-catalog/gravitational-waves-timeline-pastel-lab/preview.png)
 
 </td>
 <td width="50%">
 
 **Layered / Stack — Sunset Deck**
 
-![The OSI model as a layered stack in Sunset Deck style](examples/osi-model-sunset-deck/preview.png)
+![The OSI model as a layered stack in Sunset Deck style](examples/layout-catalog/osi-model-sunset-deck/preview.png)
 
 </td>
 </tr>
@@ -121,7 +121,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 **Glossary / Field Guide — Neon Arcade**
 
-![A field guide to AI agent jargon in Neon Arcade style](examples/ai-agent-jargon-field-guide-neon-arcade/preview.png)
+![A field guide to AI agent jargon in Neon Arcade style](examples/layout-catalog/ai-agent-jargon-field-guide-neon-arcade/preview.png)
 
 </td>
 <td width="50%"></td>
@@ -197,16 +197,24 @@ Claude will pick a layout, ask which brand you want (unless you already named on
 
 ```
 handwritten-note-skill/
-├── README.md                 you are here
+├── README.md                       you are here
+├── index.html                      GitHub Pages homepage (browsable gallery)
+├── assets/
+│   └── demo.gif                    the README demo above
 ├── skill/
-│   ├── SKILL.md               the workflow Claude follows, step by step
+│   ├── SKILL.md                    the workflow Claude follows, step by step
 │   └── references/
-│       ├── layouts.md         ten layout skeletons + when to use each
-│       └── brands.md          thirteen color systems, tokens and all
-└── examples/                  every note that's actually been built and approved
-    └── <topic>-<brand>/
-        ├── note.html
-        └── preview.png
+│       ├── layouts.md              ten layout skeletons + when to use each
+│       └── brands.md               thirteen color systems, tokens and all
+└── examples/
+    ├── layout-catalog/             one example per layout template
+    │   └── <topic>-<brand>/
+    │       ├── note.html
+    │       └── preview.png
+    └── palette-catalog-lightning/  one topic, all 13 brands, plus its own index.html
+        └── <brand>/
+            ├── note.html
+            └── preview.png
 ```
 
 ## Adding a new brand or layout

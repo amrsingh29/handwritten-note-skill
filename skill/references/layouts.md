@@ -1,6 +1,6 @@
 # Layout templates
 
-Each template below has: when to use it, the structural skeleton, and any layout-specific rules. Colors come from `brands.md` — these skeletons use the same `--accent-1..4`, `--ink`, `--paper`, `--card-bg` tokens so any brand drops in cleanly. Two fully worked examples of the Flow template exist in `examples/` at the repo root (Field Notes and BMC Helix variants of a vector-database explainer) — read one if you want to see the pattern in full HTML/CSS rather than skeleton form.
+Each template below has: when to use it, the structural skeleton, and any layout-specific rules. Colors come from `brands.md` — these skeletons use the same `--accent-1..4`, `--ink`, `--paper`, `--card-bg` tokens so any brand drops in cleanly. A fully worked example of every layout lives under `examples/layout-catalog/` (e.g. the Field Notes and BMC Helix variants of a vector-database explainer for Flow) — read one if you want to see the pattern in full HTML/CSS rather than skeleton form.
 
 ---
 
