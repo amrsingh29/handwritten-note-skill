@@ -47,6 +47,7 @@ Combine the layout skeleton from `references/layouts.md` with the color tokens f
 - Support both light and dark viewer themes: redefine tokens under `@media (prefers-color-scheme: dark)` and under `:root[data-theme="dark"]` / `:root[data-theme="light"]` — the exception is a brand that deliberately commits to one look (e.g. Chalkboard's dark board *is* the brand, not a light/dark toggle).
 - Keep hand-drawn brands (Field Notes, Chalkboard, Sticky Wall, Ink & Marker, Midnight Notebook, BMC Helix) on a handwritten font stack: `"Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive`. Small utility labels (numbered badges, eyebrow text) can use a clean sans stack for legibility even within a handwritten brand — see the worked examples.
 - Write real copy for the topic at hand: a title, a one-line thesis under it, and content per the chunks decided in Step 1. Avoid lorem ipsum or placeholder text anywhere.
+- Include `<meta charset="utf-8">` before the `<title>`. Without it, a standalone file served or screenshotted outside the Artifact wrapper (which adds this automatically) renders em dashes and curly quotes as mojibake — this bit us on the first Hub & Spoke test.
 - Publish the result as an Artifact (load the `artifact-design` skill's fundamentals for theme/CSP/responsiveness basics if unsure, but the visual direction itself comes from this skill, not from generic artifact defaults).
 
 ## Step 5 — Check it before calling it done
