@@ -6,7 +6,8 @@ the best layout template for the topic's shape.
 
 ## Status
 
-Design phase — templates and brand palettes agreed, skill implementation in progress.
+Skill implemented. See `skill/SKILL.md` for the workflow, `skill/references/layouts.md`
+for the six layout templates, and `skill/references/brands.md` for the six visual brands.
 
 ## Layout templates (planned)
 
@@ -37,6 +38,10 @@ The skill asks which brand to use each time (not auto-picked):
 ```
 handwritten-note-skill/
 ├── README.md
-├── skill/              # the actual SKILL.md + templates (WIP)
-└── examples/           # reference outputs used to validate templates
+├── skill/
+│   ├── SKILL.md              # workflow: pick layout, pick brand, build, check
+│   └── references/
+│       ├── layouts.md        # 6 layout template skeletons
+│       └── brands.md         # 6 visual brand token sets
+└── examples/                 # reference outputs (Flow template, two brands)
 ```
