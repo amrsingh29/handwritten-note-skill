@@ -31,6 +31,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [Nuclear Fission vs. Fusion](examples/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
 | [Detecting Gravitational Waves](examples/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
 | [The OSI Model, Layer by Layer](examples/osi-model-sunset-deck/note.html) | Layered / Stack | Sunset Deck |
+| [A Field Guide to AI Agent Jargon](examples/ai-agent-jargon-field-guide-neon-arcade/note.html) | Glossary / Field Guide | Neon Arcade |
 
 <table>
 <tr>
@@ -113,6 +114,16 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 </td>
 </tr>
+<tr>
+<td width="50%">
+
+**Glossary / Field Guide — Neon Arcade**
+
+![A field guide to AI agent jargon in Neon Arcade style](examples/ai-agent-jargon-field-guide-neon-arcade/preview.png)
+
+</td>
+<td width="50%"></td>
+</tr>
 </table>
 
 Same skill, same rigor, wildly different vibes. That's the point.
@@ -134,6 +145,7 @@ Picked automatically, based on what your content actually is — not habit:
 | A topic worth explaining at multiple depths | 🔭 **Zoom Levels** |
 | Two factors combine into four named buckets | 🎯 **Matrix / Quadrant** |
 | The right answer depends on the reader's situation | 🌳 **Decision Tree** |
+| A set of independent terms that need defining | 🔍 **Glossary / Field Guide** |
 
 ## The brands
 
@@ -187,7 +199,7 @@ handwritten-note-skill/
 ├── skill/
 │   ├── SKILL.md               the workflow Claude follows, step by step
 │   └── references/
-│       ├── layouts.md         nine layout skeletons + when to use each
+│       ├── layouts.md         ten layout skeletons + when to use each
 │       └── brands.md          thirteen color systems, tokens and all
 └── examples/                  every note that's actually been built and approved
     └── <topic>-<brand>/

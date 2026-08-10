@@ -1,0 +1,145 @@
+<meta charset="utf-8">
+<title>A Field Guide to AI Agent Jargon</title>
+<style>
+  :root {
+    --paper: #0a0a12;
+    --paper-line: #16162a;
+    --ink: #f5f5ff;
+    --ink-soft: #9a9ac0;
+    --accent-1: #ff2fd0;
+    --accent-2: #2ff0ff;
+    --accent-3: #d6ff2f;
+    --accent-4: #7a5cff;
+    --card-bg: #131324;
+    --shadow: rgba(0, 0, 0, 0.6);
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 36px 20px 52px;
+  }
+
+  .sheet { max-width: 1080px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.68rem; font-weight: 700;
+    color: var(--ink-soft); text-align: center;
+  }
+  h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); text-align: center; margin: 6px 0 4px; text-wrap: balance; }
+  .underline-svg { display: block; margin: -4px auto 28px; width: min(460px, 76%); filter: drop-shadow(0 0 6px var(--accent-2)); }
+
+  .intro {
+    max-width: 620px; margin: 0 auto 36px; text-align: center;
+    font-size: 1.06rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .intro b { color: var(--accent-2); }
+
+  /* --- Glossary / Field Guide --- */
+  .guide-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+
+  .spec-card {
+    background: var(--card-bg);
+    border: 2px solid var(--term-color, var(--accent-1));
+    border-radius: 12px;
+    padding: 16px 16px 18px;
+    box-shadow: 0 0 12px var(--term-color, var(--accent-1)), 0 0 2px var(--term-color, var(--accent-1)) inset;
+  }
+  .spec-card .icon { font-size: 1.5rem; margin-bottom: 8px; display: block; }
+  .spec-card .term {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800; font-size: 0.62rem; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--term-color, var(--accent-1)); margin-bottom: 3px;
+  }
+  .spec-card h3 { margin: 0 0 6px; font-size: 1.08rem; }
+  .spec-card p { margin: 0; font-size: 0.85rem; line-height: 1.4; color: var(--ink-soft); }
+
+  .footer-banner {
+    margin-top: 30px; text-align: center;
+    border: 2px solid var(--accent-3);
+    border-radius: 40px; padding: 14px 24px;
+    background: var(--card-bg); box-shadow: 0 0 12px var(--accent-3);
+    font-size: 1.02rem;
+  }
+  .footer-banner .accent { color: var(--accent-3); font-weight: 700; }
+
+  @media (max-width: 900px) { .guide-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 520px) { .guide-grid { grid-template-columns: 1fr; } }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>A Field Guide to AI Agent Jargon</h1>
+  <svg class="underline-svg" viewBox="0 0 460 20" preserveAspectRatio="none">
+    <path d="M4 12 C 110 3, 260 18, 456 8" fill="none" stroke="var(--accent-2)" stroke-width="4" stroke-linecap="round"/>
+  </svg>
+
+  <p class="intro">
+    Eight terms you'll hear constantly around AI agents — <b>spotted and labeled</b>,
+    so the next conversation doesn't send you searching.
+  </p>
+
+  <div class="guide-grid">
+    <div class="spec-card" style="--term-color: var(--accent-1);">
+      <span class="icon">🔤</span>
+      <div class="term">specimen 01</div>
+      <h3>Token</h3>
+      <p>A small chunk of text — often a word piece — that the model reads and generates one at a time.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-2);">
+      <span class="icon">🪟</span>
+      <div class="term">specimen 02</div>
+      <h3>Context Window</h3>
+      <p>Everything the model can "see" at once — your messages, its replies, and any documents, all at the same time.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-3);">
+      <span class="icon">✍️</span>
+      <div class="term">specimen 03</div>
+      <h3>Prompt</h3>
+      <p>The instructions or question you give the model to get a response back.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-4);">
+      <span class="icon">🎲</span>
+      <div class="term">specimen 04</div>
+      <h3>Temperature</h3>
+      <p>A setting that controls how random or predictable the model's word choices are — low is safe, high is creative.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-2);">
+      <span class="icon">👻</span>
+      <div class="term">specimen 05</div>
+      <h3>Hallucination</h3>
+      <p>When the model confidently states something false as if it were fact — it isn't lying, it's just wrong.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-1);">
+      <span class="icon">🎯</span>
+      <div class="term">specimen 06</div>
+      <h3>Fine-tuning</h3>
+      <p>Extra training on a specific dataset to specialize a general model's behavior for one job.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-4);">
+      <span class="icon">🕶️</span>
+      <div class="term">specimen 07</div>
+      <h3>System Prompt</h3>
+      <p>Hidden instructions set before the conversation starts, shaping how the model behaves the whole way through.</p>
+    </div>
+    <div class="spec-card" style="--term-color: var(--accent-3);">
+      <span class="icon">📎</span>
+      <div class="term">specimen 08</div>
+      <h3>Grounding</h3>
+      <p>Connecting an answer to real, checkable external data instead of relying only on what the model memorized.</p>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Know these eight, and <span class="accent">90% of AI agent conversations</span> stop feeling like a foreign language.
+  </div>
+</div>

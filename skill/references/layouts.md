@@ -185,3 +185,23 @@ Every leaf must be an actual recommendation ("use this: ___"), not just a restat
 
 1. **Connector line geometry.** If you draw the horizontal "this question splits into two answers" bar with a pseudo-element or fixed percentage offsets, its endpoints must land exactly on each branch's true center — not an arbitrary inset guess. Compute the line's `left`/`right` insets from the actual column math (e.g. two equal `1fr` columns means each column's center sits at 25% and 75% of the container, so the connecting line should span `left: 25%; right: 25%`, not something like `12.5%/87.5%` picked by eye) so the line's ends land exactly where the vertical drop into each branch actually is. A line that overshoots or undershoots the branch it's supposedly connecting to is immediately noticeable even to a casual reader.
 2. **Depth vs. width.** Each level of nesting halves the horizontal space available to what's below it (since branches keep splitting into two within the same container). Past 3 questions deep, leaf cards get squeezed narrow and their text turns tall and cramped compared to shallower leaves. Cap real decision trees at 3 questions (4 levels of leaves) for this format, and give leaf cards a `min-width` so they resist shrinking below a readable point — if a topic genuinely needs more than 3 questions, it's a sign to either cut a question or reconsider whether Decision Tree is really the right shape for it.
+
+---
+
+## Glossary / Field Guide
+
+**When**: the topic is really a set of terms someone needs defined before anything else about the subject makes sense — jargon that keeps coming up in conversation, the vocabulary of a field, or named specimens of a category (cloud types, logical fallacies, plant families). The giveaway: the content doesn't have an order, a hierarchy, or a relationship between items — each entry is fully independent and could be read in any sequence, which is what separates this from Hub & Spoke (which has a central concept the entries relate back to).
+
+**Skeleton**: a uniform grid of small "specimen" cards, each with an icon, the term, and a one- or two-sentence definition in plain language.
+
+```
+[icon] SPECIMEN 01     [icon] SPECIMEN 02     [icon] SPECIMEN 03     [icon] SPECIMEN 04
+Term                    Term                    Term                    Term
+one-line definition     one-line definition     one-line definition     one-line definition
+
+[icon] SPECIMEN 05     [icon] SPECIMEN 06     [icon] SPECIMEN 07     [icon] SPECIMEN 08
+Term                    Term                    Term                    Term
+one-line definition     one-line definition     one-line definition     one-line definition
+```
+
+Keep every definition genuinely plain-language — the whole point of a field guide is translating jargon into something a newcomer can read once and retain, so a definition that itself uses undefined jargon defeats the format. 6-8 terms is the sweet spot for one page; more than that and it stops being a quick reference and starts being a dictionary, which argues for trimming to the terms that actually come up most, not covering everything exhaustively. Give each card a distinct icon (an emoji is fine) rather than reusing the same one throughout — the icon is a memory hook, and identical icons across all cards waste that. A brand with a single-accent rule can still rotate the *icon* per card even while keeping a single border/text accent, since the icon carries the visual variety instead of color.
