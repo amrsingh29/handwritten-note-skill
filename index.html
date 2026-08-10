@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Handwritten Note — 10 Ways to Explain Anything</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="A Claude Code skill that turns any topic into a hand-drawn-style explainer. Browse all 10 layout templates and 13 color brands.">
+<style>
+  :root {
+    --bg: #f4f5f8;
+    --panel: #ffffff;
+    --ink: #1c1e26;
+    --ink-soft: #6b6f7c;
+    --border: #e2e4ea;
+    --accent: #4040d9;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #14151b;
+      --panel: #1c1e26;
+      --ink: #eceef3;
+      --ink-soft: #9498a5;
+      --border: #2c2e38;
+      --accent: #8f8fff;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  header {
+    padding: 40px 24px 20px;
+    text-align: center;
+  }
+  header .eyebrow {
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+  header h1 {
+    margin: 0 0 10px;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+  }
+  header p {
+    margin: 0 auto 16px;
+    max-width: 640px;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  header .links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  header .links a {
+    font-size: 0.86rem;
+    color: var(--ink);
+    text-decoration: none;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 20px;
+  }
+  header .links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 0;
+    height: calc(100vh - 190px);
+    min-height: 520px;
+    border-top: 1px solid var(--border);
+  }
+  .grid {
+    overflow-y: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-right: 1px solid var(--border);
+  }
+  .thumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1.5px solid var(--border);
+    background: var(--panel);
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.15s ease;
+  }
+  .thumb:hover { border-color: var(--accent); }
+  .thumb.active { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent) inset; }
+  .thumb img {
+    width: 64px; height: 44px;
+    object-fit: cover;
+    border-radius: 6px;
+    flex-shrink: 0;
+    background: #ddd;
+  }
+  .thumb .meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .thumb .name { font-weight: 600; font-size: 0.88rem; }
+  .thumb .sub { font-size: 0.74rem; color: var(--ink-soft); }
+  .viewer { position: relative; background: var(--panel); }
+  .viewer iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .viewer .open-link {
+    position: absolute; top: 12px; right: 16px;
+    font-size: 0.8rem; color: var(--accent); text-decoration: none;
+    background: var(--panel); padding: 4px 10px; border-radius: 20px;
+    border: 1px solid var(--border);
+  }
+  footer {
+    text-align: center; padding: 16px; color: var(--ink-soft); font-size: 0.82rem;
+  }
+  footer a { color: var(--accent); }
+  @media (max-width: 760px) {
+    .layout { grid-template-columns: 1fr; height: auto; }
+    .grid { border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; flex-wrap: wrap; }
+    .thumb { width: calc(50% - 5px); }
+    .viewer { height: 70vh; }
+  }
+</style>
+</head>
+<body>
+  <header>
+    <div class="eyebrow">handwritten note — a claude code skill</div>
+    <h1>10 Ways to Explain Anything</h1>
+    <p>Same idea every time: turn a topic into a single page that looks hand-drawn but reads like it was actually designed. The layout changes based on the shape of the content — this gallery shows one real, tested example of each.</p>
+    <div class="links">
+      <a href="https://github.com/amrsingh29/handwritten-note-skill">View on GitHub ↗</a>
+      <a href="examples/palette-catalog-lightning/index.html">Compare all 13 color brands ↗</a>
+    </div>
+  </header>
+
+  <div class="layout">
+    <div class="grid" id="grid"></div>
+    <div class="viewer">
+      <a class="open-link" id="openLink" href="examples/vector-db-bmc-helix/note.html" target="_blank" rel="noopener">Open full page ↗</a>
+      <iframe id="frame" src="examples/vector-db-bmc-helix/note.html" title="Note preview"></iframe>
+    </div>
+  </div>
+
+  <footer>Clone it, symlink <code>skill/</code> into <code>~/.claude/skills/</code>, and ask Claude to explain something. See the <a href="README.md">README</a> for setup.</footer>
+
+<script>
+  const templates = [
+    { slug: "vector-db-bmc-helix", layout: "Flow / Steps", topic: "How a Vector Database Finds Things", brand: "BMC Helix" },
+    { slug: "solar-cycle-midnight-notebook", layout: "Cycle / Loop", topic: "The Sun's 11-Year Cycle", brand: "Midnight Notebook" },
+    { slug: "ai-agent-building-blocks-chalkboard", layout: "Hub & Spoke", topic: "The Building Blocks of an AI Agent", brand: "Chalkboard" },
+    { slug: "fission-vs-fusion-blueprint", layout: "Comparison", topic: "Nuclear Fission vs. Fusion", brand: "Blueprint" },
+    { slug: "gravitational-waves-timeline-pastel-lab", layout: "Timeline", topic: "Detecting Gravitational Waves", brand: "Pastel Lab" },
+    { slug: "osi-model-sunset-deck", layout: "Layered / Stack", topic: "The OSI Model, Layer by Layer", brand: "Sunset Deck" },
+    { slug: "black-holes-zoom-field-notes", layout: "Zoom Levels", topic: "Black Holes, at Three Zoom Levels", brand: "Field Notes" },
+    { slug: "bcg-matrix-ink-marker", layout: "Matrix / Quadrant", topic: "The BCG Growth-Share Matrix", brand: "Ink & Marker" },
+    { slug: "agent-memory-decision-tree-bmc-helix", layout: "Decision Tree", topic: "Which Memory Should Your AI Agent Use?", brand: "BMC Helix" },
+    { slug: "ai-agent-jargon-field-guide-neon-arcade", layout: "Glossary / Field Guide", topic: "A Field Guide to AI Agent Jargon", brand: "Neon Arcade" },
+  ];
+
+  const grid = document.getElementById("grid");
+  const frame = document.getElementById("frame");
+  const openLink = document.getElementById("openLink");
+
+  function select(slug, el) {
+    const path = "examples/" + slug + "/note.html";
+    frame.src = path;
+    openLink.href = path;
+    document.querySelectorAll(".thumb").forEach(t => t.classList.remove("active"));
+    el.classList.add("active");
+  }
+
+  templates.forEach((t, i) => {
+    const btn = document.createElement("button");
+    btn.className = "thumb" + (i === 0 ? " active" : "");
+    btn.innerHTML = `
+      <img src="examples/${t.slug}/preview.png" alt="${t.topic} preview" loading="lazy">
+      <div class="meta">
+        <div class="name">${t.layout}</div>
+        <div class="sub">${t.topic}</div>
+        <div class="sub">${t.brand}</div>
+      </div>
+    `;
+    btn.addEventListener("click", () => select(t.slug, btn));
+    grid.appendChild(btn);
+  });
+</script>
+</body>
+</html>
