@@ -47,6 +47,7 @@ If a topic could fit two templates, pick the one that makes the *reader's* job e
 - **Pastel Lab** — clean white/light grey, soft pastel accents with thin outlines. Friendly, science-poster feel.
 - **Blueprint** — deep blueprint-blue, white/cyan technical linework, non-handwritten monospace/sans type. Engineering-grade.
 - **Sunset Deck** — warm dusk-to-orange gradient background, cream ink, gold accent. Aspirational, cinematic.
+- **Night Flight** — dusk-blue-to-mauve gradient with a film-grain texture, crimson/gold/teal accents. Retro travel-poster feel.
 
 If offering a menu via a UI limited to a small number of options (e.g. AskUserQuestion's 4-option cap), show 3-4 well-differentiated choices and mention in the question text that other named brands are also available — don't silently drop brands from consideration just because they don't fit in the widget.
 

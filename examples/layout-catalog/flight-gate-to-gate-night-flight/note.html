@@ -1,0 +1,169 @@
+<meta charset="utf-8">
+<title>How a Flight Actually Works, Gate to Gate</title>
+<style>
+  :root {
+    --ink: #f6ecd9;
+    --ink-soft: #cdbcd6;
+    --accent-1: #d1425a;
+    --accent-2: #f2c14e;
+    --accent-3: #5fd6c8;
+    --accent-4: #8b95d9;
+    --card-bg: #1c2350;
+    --card-border-mix: rgba(246, 236, 217, 0.14);
+    --shadow: rgba(0, 0, 0, 0.45);
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { height: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100%;
+    position: relative;
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 36px 20px 52px;
+    background: linear-gradient(180deg,
+      #131a4d 0%,
+      #2b2d76 22%,
+      #5b3f8f 45%,
+      #9a5a94 68%,
+      #c98a9d 85%,
+      #dba7ab 100%);
+    background-attachment: fixed;
+  }
+
+  /* film-grain overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='120' height='120'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    background-size: 180px 180px;
+  }
+
+  .sheet { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.68rem; font-weight: 700;
+    color: var(--accent-2); text-align: center; opacity: 0.9;
+  }
+  h1 {
+    font-size: clamp(2rem, 4.4vw, 3rem); text-align: center; margin: 8px 0 6px; text-wrap: balance;
+    text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  }
+  .rule { width: 84px; height: 3px; background: var(--accent-1); border-radius: 2px; margin: 6px auto 30px; opacity: 0.9; }
+
+  .intro {
+    max-width: 660px; margin: 0 auto 38px; text-align: center;
+    font-size: 1.1rem; color: var(--ink-soft); line-height: 1.55;
+  }
+  .intro b { color: var(--accent-2); }
+  .intro .accent2 { color: var(--accent-3); }
+
+  .row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 26px; margin-bottom: 26px;
+  }
+  .row.two { grid-template-columns: repeat(2, 1fr); max-width: 760px; margin-left: auto; margin-right: auto; }
+
+  .card {
+    background: linear-gradient(160deg, rgba(28,35,80,0.92), rgba(20,24,58,0.92));
+    border: 1.5px solid var(--card-border-mix);
+    border-top: 3px solid var(--card-color, var(--accent-1));
+    border-radius: 12px;
+    padding: 18px 20px 20px;
+    box-shadow: 0 10px 30px var(--shadow);
+    backdrop-filter: blur(2px);
+  }
+  .card .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-weight: 800; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--card-color, var(--accent-1)); margin-bottom: 6px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .card .num .dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    background: var(--card-color, var(--accent-1)); color: #14183a;
+    font-family: inherit; display: inline-flex; align-items: center; justify-content: center;
+    font-size: 0.66rem; font-weight: 800;
+  }
+  .card h3 { margin: 0 0 6px; font-size: 1.22rem; color: var(--ink); }
+  .card p { margin: 0; font-size: 0.98rem; line-height: 1.42; color: var(--ink-soft); }
+  .card .egg { margin-top: 10px; font-size: 0.9rem; color: var(--card-color, var(--accent-1)); font-weight: 700; }
+
+  .footer-banner {
+    margin-top: 20px; text-align: center;
+    border: 1.5px solid var(--accent-2);
+    border-radius: 40px; padding: 15px 26px;
+    background: rgba(20,24,58,0.85);
+    box-shadow: 0 10px 30px var(--shadow);
+    font-size: 1.06rem;
+  }
+  .footer-banner .accent { color: var(--accent-2); font-weight: 700; }
+
+  @media (max-width: 860px) {
+    .row, .row.two { grid-template-columns: 1fr; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>How a Flight Actually Works, Gate to Gate</h1>
+  <div class="rule"></div>
+
+  <p class="intro">
+    Between the gate and the runway lights on the other end, a flight is really
+    <b>six distinct phases</b> — each with its own job, its own risks, and its own crew choreography.
+  </p>
+
+  <div class="row">
+    <div class="card" style="--card-color: var(--accent-1);">
+      <div class="num"><span class="dot">1</span> boarding</div>
+      <h3>Loading the aircraft</h3>
+      <p>Passengers, bags, and cargo get weighed and balanced — the plane's exact weight decides its takeoff speed and fuel burn.</p>
+      <div class="egg">weight & balance, checked twice</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-2);">
+      <div class="num"><span class="dot">2</span> pushback & taxi</div>
+      <h3>Getting to the runway</h3>
+      <p>A tug pushes the plane back from the gate, then the crew taxis under their own power, guided by air traffic control the whole way.</p>
+      <div class="egg">often the slowest part of the trip</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-3);">
+      <div class="num"><span class="dot">3</span> takeoff</div>
+      <h3>The critical few minutes</h3>
+      <p>Full thrust, a calculated speed to commit to flying, and a climb out — the most demanding phase for the crew, by far.</p>
+      <div class="egg">V1, Vr, V2 — the three speeds that matter</div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="card" style="--card-color: var(--accent-4);">
+      <div class="num"><span class="dot">4</span> cruise</div>
+      <h3>The calm middle</h3>
+      <p>Autopilot holds altitude and course while the crew monitors fuel, weather, and traffic — the least eventful, longest phase.</p>
+      <div class="egg">35,000 ft, ~550 mph, mostly automated</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-1);">
+      <div class="num"><span class="dot">5</span> descent & approach</div>
+      <h3>Lining it up</h3>
+      <p>A controlled descent, speed and flap changes, and lining up with the runway — often the busiest few minutes for the pilots.</p>
+      <div class="egg">stabilized approach, or go around</div>
+    </div>
+    <div class="card" style="--card-color: var(--accent-2);">
+      <div class="num"><span class="dot">6</span> landing & taxi in</div>
+      <h3>Back on the ground</h3>
+      <p>Touchdown, reverse thrust and brakes to slow down, then one more taxi to the gate before the doors finally open.</p>
+      <div class="egg">the flight isn't over until the gate</div>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ Six phases, one continuous handoff — <span class="accent">nothing about a flight is really "just cruising."</span>
+  </div>
+</div>

@@ -368,3 +368,31 @@ Warm, aspirational, a little cinematic — like a travel poster or the cover sli
 ```
 
 Apply the "sunset" as an actual background gradient rather than a flat color: `background: linear-gradient(180deg, #2a1a3d 0%, #6a3a52 55%, #b5603f 100%)` (dusk purple at top fading to warm orange at the bottom) instead of using `--paper` flat. Gold (`accent-2`) works well as the one "important" accent (like Helix's orange rule), with the pinks and purples doing quieter supporting work in card borders.
+
+---
+
+## Night Flight
+
+Cinematic and nostalgic — a dusk sky gradient with a film-grain texture, styled after retro airline travel posters. Single-theme by design; the gradient-plus-grain combination *is* the brand, not a toggle. Sourced directly from a user-supplied reference image (a vintage-style jet-over-city-lights poster) rather than invented from scratch — when a user hands you visual inspiration like this, pull the actual gradient stops and accent hues from the image instead of approximating from memory.
+
+```css
+:root {
+  --paper: #1c2350;       /* also the card background — the gradient lives on `body`, not this token */
+  --paper-line: rgba(246, 236, 217, 0.14);
+  --ink: #f6ecd9;          /* warm cream, like the fuselage */
+  --ink-soft: #cdbcd6;     /* dusty lavender, blends into the gradient */
+  --accent-1: #d1425a;     /* crimson — the livery stripe */
+  --accent-2: #f2c14e;     /* gold — the city lights */
+  --accent-3: #5fd6c8;     /* teal — a cool counterpoint */
+  --accent-4: #8b95d9;     /* soft periwinkle */
+  --card-bg: #1c2350;
+  --shadow: rgba(0, 0, 0, 0.45);
+}
+```
+
+Two mechanics that make this brand distinct, both required — dropping either one turns it into a generic dark-blue brand:
+
+1. **The gradient background**, applied to `body` (not a flat `--paper`): `background: linear-gradient(180deg, #131a4d 0%, #2b2d76 22%, #5b3f8f 45%, #9a5a94 68%, #c98a9d 85%, #dba7ab 100%);` plus `background-attachment: fixed` so it doesn't tile or repeat awkwardly on scroll.
+2. **A film-grain overlay**, as a `body::before` pseudo-element with `position: fixed; inset: 0; pointer-events: none;`, using an inline SVG `feTurbulence` filter as its `background-image`, `opacity: 0.16`, and `mix-blend-mode: overlay`. This is what separates it from a flat digital gradient — it reads as printed, not rendered. Keep opacity low (0.12–0.18); higher looks like a broken image, not film stock.
+
+Cards read best with thin ink-colored borders (not thick colored ones) plus a subtle dark translucent fill (`rgba(28,35,80,0.92)`-ish) so the gradient stays visible through/around them rather than getting fully occluded — this brand wants the sky to stay present behind the content, not disappear behind opaque cards.

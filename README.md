@@ -33,6 +33,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [Nuclear Fission vs. Fusion](examples/layout-catalog/fission-vs-fusion-blueprint/note.html) | Comparison | Blueprint |
 | [Detecting Gravitational Waves](examples/layout-catalog/gravitational-waves-timeline-pastel-lab/note.html) | Timeline | Pastel Lab |
 | [The OSI Model, Layer by Layer](examples/layout-catalog/osi-model-sunset-deck/note.html) | Layered / Stack | Sunset Deck |
+| [How a Flight Actually Works, Gate to Gate](examples/layout-catalog/flight-gate-to-gate-night-flight/note.html) | Flow / Steps | Night Flight |
 | [A Field Guide to AI Agent Jargon](examples/layout-catalog/ai-agent-jargon-field-guide-neon-arcade/note.html) | Glossary / Field Guide | Neon Arcade |
 | [How HelixGPT's Ticket Resolver Works](examples/layout-catalog/helixgpt-ticket-resolver-bmc-helix/note.html) | Flow / Steps | BMC Helix |
 
@@ -133,11 +134,21 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 
 </td>
 </tr>
+<tr>
+<td width="50%">
+
+**Flow — Night Flight**
+
+![How a flight actually works, gate to gate, in Night Flight style](examples/layout-catalog/flight-gate-to-gate-night-flight/preview.png)
+
+</td>
+<td width="50%"></td>
+</tr>
 </table>
 
 Same skill, same rigor, wildly different vibes. That's the point.
 
-**Want to see all 13 brands side by side?** Check out the [palette catalog](examples/palette-catalog-lightning/index.html) — the same "How Lightning Works" note, rendered once per brand, in a browsable gallery with a live preview pane.
+**Want to see all 14 brands side by side?** Check out the [palette catalog](examples/palette-catalog-lightning/index.html) — the same "How Lightning Works" note, rendered once per brand, in a browsable gallery with a live preview pane.
 
 ## The layouts
 
@@ -173,8 +184,9 @@ Picked by *you*, every time:
 - **Pastel Lab** — clean white, soft pastels, science-poster energy
 - **Blueprint** — deep blueprint blue, precise cyan linework, engineering-grade energy
 - **Sunset Deck** — dusk-to-orange gradient, gold ink, pitch-deck-cover energy
+- **Night Flight** — dusk-blue-to-mauve gradient with film grain, crimson/gold/teal accents, retro travel-poster energy
 
-Thirteen brands now — that's more than fits in a typical multiple-choice prompt, so Claude will usually show you a handful of well-differentiated options and let you name any of the rest directly. Full color tokens for each live in [`skill/references/brands.md`](skill/references/brands.md).
+Fourteen brands now — that's more than fits in a typical multiple-choice prompt, so Claude will usually show you a handful of well-differentiated options and let you name any of the rest directly. Full color tokens for each live in [`skill/references/brands.md`](skill/references/brands.md).
 
 ## Using it in Claude Code
 
@@ -212,13 +224,13 @@ handwritten-note-skill/
 │   ├── SKILL.md                    the workflow Claude follows, step by step
 │   └── references/
 │       ├── layouts.md              ten layout skeletons + when to use each
-│       └── brands.md               thirteen color systems, tokens and all
+│       └── brands.md               fourteen color systems, tokens and all
 └── examples/
     ├── layout-catalog/             one example per layout template
     │   └── <topic>-<brand>/
     │       ├── note.html
     │       └── preview.png
-    └── palette-catalog-lightning/  one topic, all 13 brands, plus its own index.html
+    └── palette-catalog-lightning/  one topic, all 14 brands, plus its own index.html
         └── <brand>/
             ├── note.html
             └── preview.png
