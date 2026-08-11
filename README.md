@@ -38,6 +38,7 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 | [How a Flight Actually Works, Gate to Gate](examples/layout-catalog/flight-gate-to-gate-night-flight/note.html) | Flow / Steps | Night Flight |
 | [A Field Guide to AI Agent Jargon](examples/layout-catalog/ai-agent-jargon-field-guide-neon-arcade/note.html) | Glossary / Field Guide | Neon Arcade |
 | [How HelixGPT's Ticket Resolver Works](examples/layout-catalog/helixgpt-ticket-resolver-bmc-helix/note.html) | Flow / Steps | BMC Helix |
+| [How LFP Batteries Work](examples/layout-catalog/lfp-battery-ink-marker/note.html) | Cycle / Loop | Ink & Marker |
 
 <table>
 <tr>
@@ -144,7 +145,13 @@ Then it writes a complete, responsive, light/dark-theme-aware HTML page and publ
 ![How a flight actually works, gate to gate, in Night Flight style](examples/layout-catalog/flight-gate-to-gate-night-flight/preview.png)
 
 </td>
-<td width="50%"></td>
+<td width="50%">
+
+**Cycle — Ink & Marker**
+
+![How LFP batteries charge and discharge in Ink and Marker style](examples/layout-catalog/lfp-battery-ink-marker/preview.png)
+
+</td>
 </tr>
 </table>
 

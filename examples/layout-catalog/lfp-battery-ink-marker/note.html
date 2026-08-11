@@ -1,0 +1,186 @@
+<meta charset="utf-8">
+<title>How LFP Batteries Work</title>
+<style>
+  :root {
+    --paper: #ffffff;
+    --paper-line: #eeeeee;
+    --ink: #111111;
+    --ink-soft: #55555a;
+    --accent-1: #ff4500;
+    --card-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.12);
+  }
+  :root[data-theme="dark"] {
+    --paper: #0c0c0d; --paper-line: #1c1c1e;
+    --ink: #f2f2f2; --ink-soft: #a0a0a5;
+    --accent-1: #ff6a3d;
+    --card-bg: #17171a; --shadow: rgba(0,0,0,0.5);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #0c0c0d; --paper-line: #1c1c1e;
+      --ink: #f2f2f2; --ink-soft: #a0a0a5;
+      --accent-1: #ff6a3d;
+      --card-bg: #17171a; --shadow: rgba(0,0,0,0.5);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Bradley Hand", "Segoe Print", "Chalkboard SE", "Comic Sans MS", cursive;
+    padding: 32px 20px 48px;
+  }
+
+  .sheet { max-width: 1080px; margin: 0 auto; }
+
+  .label {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-transform: uppercase; letter-spacing: 0.16em; font-size: 0.68rem; font-weight: 700;
+    color: var(--ink-soft); text-align: center;
+  }
+  h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); text-align: center; margin: 6px 0 4px; text-wrap: balance; }
+  .rule { width: 70px; height: 4px; background: var(--accent-1); border-radius: 2px; margin: 8px auto 30px; }
+
+  .intro {
+    max-width: 620px; margin: 0 auto 34px; text-align: center;
+    font-size: 1.08rem; color: var(--ink-soft); line-height: 1.5;
+  }
+  .intro b { color: var(--accent-1); }
+
+  /* --- Cycle / Loop --- */
+  .cycle-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 560px;
+    aspect-ratio: 1 / 1;
+    margin: 60px auto 70px;
+  }
+
+  .cycle-lines { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .cycle-lines path {
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    opacity: 0.85;
+  }
+  .cycle-lines path.loop-back {
+    stroke: var(--accent-1);
+    stroke-dasharray: 1 8;
+    opacity: 1;
+  }
+
+  .center-note {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 172px;
+    text-align: center;
+    z-index: 3;
+  }
+  .center-note .icon { font-size: 1.9rem; margin-bottom: 4px; }
+  .center-note .invariant {
+    font-size: 0.9rem;
+    line-height: 1.3;
+    color: var(--accent-1);
+    font-weight: 700;
+  }
+
+  .stage {
+    position: absolute;
+    width: 210px;
+    background: var(--card-bg);
+    border: 3px solid var(--ink);
+    border-radius: 10px;
+    box-shadow: 3px 5px 0 var(--shadow);
+    padding: 15px 17px 17px;
+    z-index: 2;
+  }
+  .stage .num {
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase;
+    color: var(--accent-1); margin-bottom: 4px;
+  }
+  .stage h3 { margin: 0 0 4px; font-size: 1.1rem; }
+  .stage p { margin: 0; font-size: 0.87rem; line-height: 1.38; color: var(--ink-soft); }
+  .stage b { color: var(--ink); }
+
+  .p1 { top: 10%;  left: 50%;  transform: translate(-50%, -68%); }
+  .p2 { top: 50%;  left: 90%;  transform: translate(-8%, -50%); }
+  .p3 { top: 90%;  left: 50%;  transform: translate(-50%, -32%); }
+  .p4 { top: 50%;  left: 10%;  transform: translate(-92%, -50%); }
+
+  .footer-banner {
+    margin-top: 6px; text-align: center;
+    border: 3px solid var(--ink);
+    border-radius: 40px; padding: 14px 24px;
+    background: var(--card-bg); box-shadow: 4px 6px 0 var(--shadow);
+    font-size: 1.05rem;
+  }
+  .footer-banner .accent { color: var(--accent-1); font-weight: 700; }
+
+  .mobile-list { display: none; }
+  @media (max-width: 760px) {
+    .cycle-wrap { display: none; }
+    .mobile-list {
+      display: flex; flex-direction: column; gap: 16px;
+      max-width: 480px; margin: 0 auto 26px;
+    }
+    .mobile-list .stage { position: static; width: 100%; }
+    .mobile-list .center-note { position: static; transform: none; width: 100%; margin-bottom: 4px; }
+  }
+</style>
+
+<div class="sheet">
+  <div class="label">a field note on</div>
+  <h1>How LFP Batteries Work</h1>
+  <div class="rule"></div>
+
+  <p class="intro">
+    A battery isn't a container of energy — it's a <b>shuttle</b> for lithium ions,
+    running the same short trip back and forth, thousands of times over.
+  </p>
+
+  <div class="cycle-wrap">
+    <svg class="cycle-lines" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet">
+      <path d="M50 10 A 40 40 0 0 1 90 50" />
+      <path d="M90 50 A 40 40 0 0 1 50 90" />
+      <path d="M50 90 A 40 40 0 0 1 10 50" />
+      <path class="loop-back" d="M10 50 A 40 40 0 0 1 50 10" />
+    </svg>
+
+    <div class="center-note">
+      <div class="icon">🔋</div>
+      <div class="invariant">the framework barely wears out — that's the whole trick</div>
+    </div>
+
+    <div class="stage p1">
+      <div class="num">plug in</div>
+      <h3>Charging</h3>
+      <p>External power pushes <b>lithium ions</b> out of the iron-phosphate cathode, across the electrolyte, toward the graphite anode.</p>
+    </div>
+    <div class="stage p2">
+      <div class="num">stored</div>
+      <h3>Ions Settle In</h3>
+      <p>Ions wedge themselves between layers of graphite at the anode — the battery now holds usable energy.</p>
+    </div>
+    <div class="stage p3">
+      <div class="num">structure holds</div>
+      <h3>Framework Survives</h3>
+      <p>Unlike other lithium chemistries, the <b>iron-phosphate structure</b> barely shifts shape doing this — so it can go again, and again.</p>
+    </div>
+    <div class="stage p4">
+      <div class="num">powering up</div>
+      <h3>Discharging</h3>
+      <p>Plugged into a device, ions flow back to the cathode — electrons take the long way through the circuit, doing the actual work.</p>
+    </div>
+  </div>
+
+  <div class="footer-banner">
+    ✎ LFP isn't a different way to store energy — it's a chemistry built to <span class="accent">survive doing it thousands of times over</span>.
+  </div>
+</div>
